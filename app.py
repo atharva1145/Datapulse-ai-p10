@@ -25,8 +25,7 @@ from config.settings import (
     MAX_UPLOAD_SIZE_MB
 )
 from modules.data_loader import load_csv
-from modules.ui_components import render_page_header, render_theme_selector
-from modules.screen_recorder import render_screen_recorder
+from modules.ui_components import render_page_header
 
 # Configure page layout and metadata
 st.set_page_config(
@@ -170,10 +169,6 @@ render_page_header(
     module_tag="CORE PLATFORM",
     subtitle="Continuous Assessment P10 | Autonomous CSV Profiling, ML Task Recommendation & AI Analytics"
 )
-
-# In-Browser Screen Recorder Studio for Demo Videos
-with st.expander("📹 Open Demo Video Screen Recorder Studio (2–3 Min Record & Download)", expanded=False):
-    render_screen_recorder(theme=st.session_state.get("app_theme", "Dark"))
 
 st.markdown(f"""
 <div class="hero-executive-card">

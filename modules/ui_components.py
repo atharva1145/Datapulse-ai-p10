@@ -1,14 +1,14 @@
 """
 Module: UI Components, Enterprise Banners & Multi-Theme Controller
-Student: Atharva Shelar (Roll No: 10)
-Subject: Generative AI (P10)
+Subject: Generative AI (Continuous Assessment Problem P10)
 
-Provides consistent executive app headers, multi-theme switching (System / Light / Dark),
-breadcrumb navigation, and status indicators across all application pages.
+Provides a clean, minimalist top app bar with Logo, Theme Switcher,
+Screen Recorder modal dialog, and status indicators in the upper-right corner.
 """
 
 from typing import Optional
 import streamlit as st
+from modules.screen_recorder import render_screen_recorder
 
 
 def apply_theme() -> str:
@@ -28,55 +28,17 @@ def apply_theme() -> str:
             background-color: #F8FAFC !important;
             color: #0F172A !important;
         }
-        .enterprise-app-bar {
+        .clean-top-bar {
             background: #FFFFFF !important;
-            border: 1px solid #E2E8F0 !important;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04) !important;
-        }
-        .brand-title {
-            color: #0F172A !important;
-        }
-        .brand-badge {
-            background: #EEF2FF !important;
-            border: 1px solid #C7D2FE !important;
-            color: #4F46E5 !important;
-        }
-        .brand-breadcrumb-page {
-            color: #475569 !important;
-        }
-        .meta-chip {
-            background: #F1F5F9 !important;
-            border: 1px solid #E2E8F0 !important;
-            color: #334155 !important;
-        }
-        .meta-chip-dataset.active {
-            background: #ECFEFF !important;
-            border-color: #A5F3FC !important;
-            color: #0891B2 !important;
-        }
-        .student-chip {
-            background: #EEF2FF !important;
-            border-color: #C7D2FE !important;
+            border-bottom: 1px solid #E2E8F0 !important;
         }
         .page-main-heading {
             color: #0F172A !important;
-        }
-        .page-main-subtext {
-            color: #475569 !important;
-        }
-        .module-pill-badge {
-            background: #EEF2FF !important;
-            border: 1px solid #C7D2FE !important;
-            color: #4338CA !important;
         }
         .metric-box {
             background: #FFFFFF !important;
             border: 1px solid #E2E8F0 !important;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
-        }
-        .metric-box:hover {
-            border-color: #4F46E5 !important;
-            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.1) !important;
         }
         .metric-num {
             color: #0F172A !important;
@@ -89,19 +51,11 @@ def apply_theme() -> str:
             border: 1px solid #E2E8F0 !important;
             box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
         }
-        .module-card:hover {
-            border-color: #4F46E5 !important;
-        }
         .module-title {
             color: #0F172A !important;
         }
         .module-desc {
             color: #475569 !important;
-        }
-        .module-tag-badge {
-            background: #EEF2FF !important;
-            border: 1px solid #C7D2FE !important;
-            color: #4338CA !important;
         }
         .stTabs [data-baseweb="tab-list"] {
             background-color: #F1F5F9 !important;
@@ -123,14 +77,6 @@ def apply_theme() -> str:
         section[data-testid="stSidebar"] * {
             color: #0F172A !important;
         }
-        .sidebar-brand-card {
-            background: #FFFFFF !important;
-            border: 1px solid #E2E8F0 !important;
-        }
-        .sidebar-status-box {
-            background: #FFFFFF !important;
-            border: 1px solid #E2E8F0 !important;
-        }
         div[data-baseweb="select"] > div,
         div[data-baseweb="input"] > div,
         div[data-baseweb="textarea"] > div {
@@ -151,19 +97,11 @@ def apply_theme() -> str:
         return "light"
 
     elif theme == "System Default":
-        # System mode uses CSS media queries to respect OS preference
         st.markdown("""
         <style>
         @media (prefers-color-scheme: light) {
             html, body, [class*="css"], .stApp {
                 background-color: #F8FAFC !important;
-                color: #0F172A !important;
-            }
-            .enterprise-app-bar {
-                background: #FFFFFF !important;
-                border: 1px solid #E2E8F0 !important;
-            }
-            .brand-title, .page-main-heading, .metric-num, .module-title {
                 color: #0F172A !important;
             }
             .metric-box, .module-card, div[data-testid="stDataFrame"], div[data-testid="stAlert"] {
@@ -185,99 +123,104 @@ def apply_theme() -> str:
         """, unsafe_allow_html=True)
         return "system"
 
-    # Default is Dark (Enterprise)
     return "dark"
 
 
-def render_theme_selector(in_sidebar: bool = True) -> None:
-    """Renders a clean dropdown to switch between Dark, Light, and System themes."""
-    if "app_theme" not in st.session_state:
-        st.session_state["app_theme"] = "Dark (Enterprise)"
-
-    theme_options = ["Dark (Enterprise)", "Light (Clean)", "System Default"]
-    current_idx = theme_options.index(st.session_state["app_theme"]) if st.session_state["app_theme"] in theme_options else 0
-
-    if in_sidebar:
-        with st.sidebar:
-            st.markdown("<div style='font-size: 0.76rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 14px; margin-bottom: 4px;'>Interface Theme</div>", unsafe_allow_html=True)
-            chosen = st.selectbox(
-                "Interface Theme:",
-                theme_options,
-                index=current_idx,
-                label_visibility="collapsed",
-                key="theme_selector_dropdown"
-            )
-            if chosen != st.session_state["app_theme"]:
-                st.session_state["app_theme"] = chosen
-                st.rerun()
+@st.dialog("📹 Demo Video Screen Recorder Studio", width="large")
+def open_recorder_dialog():
+    """Modal dialog displaying the HTML5 screen recorder and script teleprompter."""
+    st.caption("Record your browser screen, tab audio, and microphone directly. Once stopped, download your demo video file.")
+    render_screen_recorder(theme=st.session_state.get("app_theme", "Dark"))
 
 
 def render_page_header(
     page_title: str,
-    module_tag: str,
-    subtitle: str,
-    current_page_name: Optional[str] = None
+    module_tag: str = "",
+    subtitle: str = ""
 ) -> None:
     """
-    Renders an executive, Datadog/Linear-style enterprise app header on every page.
-    Includes theme applicator, breadcrumbs, live engine indicator, active dataset pill, and student badge.
+    Renders a clean, minimalist top bar.
+    - Left: Logo + Platform Name + Breadcrumb
+    - Middle: Ingested Dataset Pill
+    - Right Upside Corner: Theme Selector (Dark/Light/System) & Record Demo Button
     """
-    # Apply theme dynamically and render theme selector in sidebar
     apply_theme()
-    render_theme_selector(in_sidebar=True)
 
-    active_dataset = st.session_state.get("dataset_name", "No Dataset Loaded")
-    df = st.session_state.get("df", None)
-    
-    if df is not None:
-        dataset_meta_str = f"📊 {active_dataset} ({len(df):,} × {len(df.columns)})"
-        dataset_pill_class = "meta-chip-dataset active"
+    # Upper Bar: Logo on Left, Theme & Record on Upper Right Corner
+    top_col_brand, top_col_dataset, top_col_rec, top_col_theme = st.columns(
+        [4.2, 3.2, 1.3, 1.3],
+        vertical_alignment="center"
+    )
+
+    with top_col_brand:
+        st.markdown(f"""
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.3rem;">📊</span>
+            <span style="font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em;">CSV INSIGHT AI</span>
+            <span style="color: #64748B; font-size: 0.85rem;">/</span>
+            <span style="font-size: 0.88rem; font-weight: 600; color: #818CF8;">{page_title}</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with top_col_dataset:
+        active_dataset = st.session_state.get("dataset_name", None)
+        df = st.session_state.get("df", None)
+        if df is not None:
+            st.markdown(f"""
+            <div style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 6px; padding: 4px 10px; font-size: 0.76rem; color: #38BDF8; font-weight: 600; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                📁 {active_dataset} ({len(df):,} × {len(df.columns)})
+            </div>
+            """, unsafe_allow_html=True)
+
+    # Upper Right Corner: Record Demo Button
+    with top_col_rec:
+        safe_key_rec = f"rec_{page_title.lower().replace(' ', '_')}"
+        if st.button("🔴 Record", key=safe_key_rec, use_container_width=True, help="Record 2-3 minute demo video"):
+            open_recorder_dialog()
+
+    # Upper Right Corner: Theme Dropdown
+    with top_col_theme:
+        theme_map = {
+            "🌙 Dark": "Dark (Enterprise)",
+            "☀️ Light": "Light (Clean)",
+            "💻 System": "System Default"
+        }
+        reverse_map = {
+            "Dark (Enterprise)": "🌙 Dark",
+            "Light (Clean)": "☀️ Light",
+            "System Default": "💻 System"
+        }
+        curr_theme = st.session_state.get("app_theme", "Dark (Enterprise)")
+        safe_key_theme = f"theme_{page_title.lower().replace(' ', '_')}"
+        
+        chosen = st.selectbox(
+            "Theme",
+            ["🌙 Dark", "☀️ Light", "💻 System"],
+            index=["🌙 Dark", "☀️ Light", "💻 System"].index(reverse_map.get(curr_theme, "🌙 Dark")),
+            key=safe_key_theme,
+            label_visibility="collapsed"
+        )
+        if theme_map[chosen] != curr_theme:
+            st.session_state["app_theme"] = theme_map[chosen]
+            st.rerun()
+
+    # Optional subtext for context
+    if subtitle:
+        st.markdown(f"<div style='font-size: 0.82rem; color: #94A3B8; margin-top: 2px; margin-bottom: 12px;'>{subtitle}</div>", unsafe_allow_html=True)
     else:
-        dataset_meta_str = "⚠️ No Dataset Loaded"
-        dataset_pill_class = "meta-chip-dataset warning"
-
-    st.markdown(f"""
-    <div class="enterprise-app-bar">
-        <div class="brand-section">
-            <span class="brand-badge">P10</span>
-            <span class="brand-title">CSV INSIGHT AI</span>
-            <span class="brand-breadcrumb-separator">/</span>
-            <span class="brand-breadcrumb-page">{page_title}</span>
-        </div>
-        <div class="meta-chips-group">
-            <div class="meta-chip {dataset_pill_class}">
-                {dataset_meta_str}
-            </div>
-            <div class="meta-chip">
-                <div class="status-dot-active"></div>
-                <span>Engine Online</span>
-            </div>
-            <div class="meta-chip version-chip">
-                <span style="color: #818CF8;">v2.4 Enterprise</span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="page-subheader-container">
-        <div class="page-title-row">
-            <h1 class="page-main-heading">{page_title}</h1>
-            <span class="module-pill-badge">{module_tag}</span>
-        </div>
-        <p class="page-main-subtext">{subtitle}</p>
-    </div>
-    """, unsafe_allow_html=True)
+        st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
 
 
 def render_empty_state_warning() -> None:
-    """Renders a sleek warning when no dataset has been ingested yet."""
+    """Renders a simple warning when no dataset has been ingested yet."""
     st.markdown("""
     <div class="empty-state-card">
-        <div style="font-size: 2.2rem; margin-bottom: 8px;">📂</div>
-        <div style="font-size: 1.15rem; font-weight: 700; color: #F8FAFC; margin-bottom: 6px;">
+        <div style="font-size: 2rem; margin-bottom: 6px;">📂</div>
+        <div style="font-size: 1.1rem; font-weight: 700; color: #F8FAFC; margin-bottom: 4px;">
             No CSV Dataset Currently Ingested
         </div>
-        <div style="font-size: 0.88rem; color: #94A3B8; max-width: 500px; margin: 0 auto 16px auto;">
-            Please open the sidebar on the left or return to the <b>Home</b> page to select an official benchmark dataset (Iris, Titanic, Wine) or upload your own CSV file.
+        <div style="font-size: 0.85rem; color: #94A3B8; max-width: 480px; margin: 0 auto 12px auto;">
+            Please select an official benchmark dataset (Iris, Titanic, Wine) in the sidebar or upload your own CSV file.
         </div>
     </div>
     """, unsafe_allow_html=True)
