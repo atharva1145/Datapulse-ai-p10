@@ -14,7 +14,7 @@ def generate_1pager():
 <style>
     @page {{
         size: A4 portrait;
-        margin: 14mm 18mm 14mm 18mm;
+        margin: 0;
     }}
     * {{
         box-sizing: border-box;
@@ -22,11 +22,28 @@ def generate_1pager():
         padding: 0;
     }}
     body {{
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-family: "Times New Roman", Times, Georgia, serif;
         color: #1f2433;
         background: #ffffff;
-        font-size: 9.7pt;
-        line-height: 1.48;
+        font-size: 9.5pt;
+        line-height: 1.45;
+        width: 210mm;
+        height: 297mm;
+        padding: 16mm 18mm 14mm 18mm;
+        position: relative;
+        box-sizing: border-box;
+    }}
+    body::before {{
+        content: "";
+        position: absolute;
+        top: 9mm;
+        bottom: 9mm;
+        left: 9mm;
+        right: 9mm;
+        border: 1.5pt solid #2d2a4a;
+        pointer-events: none;
+        box-sizing: border-box;
+        z-index: 100;
     }}
     .header {{
         display: flex;
@@ -270,7 +287,7 @@ def generate_1pager():
             path='10_Atharva_Shelar_1Pager.pdf',
             format='A4',
             print_background=True,
-            margin={'top': '14mm', 'bottom': '14mm', 'left': '18mm', 'right': '18mm'}
+            margin={'top': '0mm', 'bottom': '0mm', 'left': '0mm', 'right': '0mm'}
         )
         browser.close()
     print("Successfully generated 10_Atharva_Shelar_1Pager.pdf")

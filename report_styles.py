@@ -14,11 +14,11 @@ REPORT_CSS = """
     padding: 0;
 }
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Times New Roman", Times, Georgia, serif;
     color: #1f2433;
     background: #ffffff;
     font-size: 9.3pt;
-    line-height: 1.5;
+    line-height: 1.48;
 }
 .page {
     width: 210mm;
@@ -33,6 +33,18 @@ body {
     flex-direction: column;
     background: #ffffff;
 }
+.page::before {
+    content: "";
+    position: absolute;
+    top: 9mm;
+    bottom: 9mm;
+    left: 9mm;
+    right: 9mm;
+    border: 1.5pt solid #2d2a4a;
+    pointer-events: none;
+    box-sizing: border-box;
+    z-index: 100;
+}
 .page-header {
     display: flex;
     justify-content: space-between;
@@ -42,6 +54,7 @@ body {
     border-bottom: 1px solid #edf0f5;
     margin-bottom: 14px;
     flex-shrink: 0;
+    font-family: "Times New Roman", Times, Georgia, serif;
 }
 .header-left {
     color: #7c6bc4;
