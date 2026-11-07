@@ -1,0 +1,32 @@
+# ==============================================================================
+# CSV INSIGHT AI - P10 Academic Project Dependencies
+# Student: Atharva Shelar (Roll No: 10)
+# Subject: Generative AI
+# ==============================================================================
+
+# Core Framework & UI
+streamlit>=1.35.0
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Visualization
+plotly>=5.18.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Google Gemini LLM & Multimodal Vision SDK
+google-genai>=0.1.1
+
+# Embeddings & Transformers
+sentence-transformers>=3.0.0
+transformers>=4.40.0
+
+# Tabular GAN
+torch>=2.2.0
+ctgan>=0.10.0
+
+# PDF Report Generation & Quality
+reportlab>=4.0.0
+python-dotenv>=1.0.0
+pytest>=8.0.0

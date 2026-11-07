@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# Environment Variables & Secrets (CRITICAL: NEVER COMMIT)
+.env
+*.env
+.env.local
+
+# Streamlit
+.streamlit/secrets.toml
+
+# PyTorch / Hugging Face model cache
+.cache/
+huggingface/
+checkpoints/
+*.pt
+*.pth
+*.bin
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS Specific
+.DS_Store
+Thumbs.db
