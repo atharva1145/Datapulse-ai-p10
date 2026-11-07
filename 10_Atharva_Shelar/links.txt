@@ -1,0 +1,17 @@
+DataPulse AI — Project Submission Links
+Student Name: Atharva Shelar
+Roll Number: 10
+Enrollment Number: ADT23SOCB0244
+Class / Division: LY-AIA-3
+Faculty Guide: Dr. Snehlata Funde
+Course: Generative AI Mini Project (2026–2027)
+Problem Statement: P10 · CSV Dataset Insight & Task Recommender
+
+Live Web Application:
+https://datapulse-ai-p10.streamlit.app/
+
+GitHub Source Code Repository:
+https://github.com/atharva1145/Datapulse-ai-p10
+
+Demo Video:
+(Add your 2-3 minute Google Drive / YouTube unlisted demo video link here before submission)
