@@ -396,10 +396,10 @@ def apply_theme() -> str:
     return "dark"
 
 
-@st.dialog("📹 Demo Video Screen Recorder Studio", width="large")
+@st.dialog("📹 Screen Recorder Studio", width="large")
 def open_recorder_dialog():
     """Modal dialog displaying the HTML5 screen recorder and script teleprompter."""
-    st.caption("Record your browser screen, tab audio, and microphone directly. Once stopped, download your demo video file.")
+    st.caption("Record your browser screen, tab audio, and microphone directly. Once stopped, download your recorded video file.")
     render_screen_recorder(theme=st.session_state.get("app_theme", "Dark"))
 
 
@@ -482,7 +482,7 @@ def render_page_header(
                 st.rerun()
 
             st.markdown("<div style='font-size: 0.76rem; font-weight: 700; color: #94A3B8; margin-top: 10px; margin-bottom: 4px;'>📹 Screen Recording</div>", unsafe_allow_html=True)
-            if st.button("🔴 Record Demo Video", key=f"pop_rec_{safe_key_suffix}", use_container_width=True):
+            if st.button("🔴 Record Video", key=f"pop_rec_{safe_key_suffix}", use_container_width=True):
                 open_recorder_dialog()
 
             st.markdown("<div style='font-size: 0.7rem; color: #64748B; margin-top: 10px; text-align: center;'>Problem P10 Continuous Assessment</div>", unsafe_allow_html=True)

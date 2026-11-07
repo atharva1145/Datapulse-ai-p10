@@ -180,7 +180,7 @@ def render_screen_recorder(theme: str = "dark") -> None:
             <div class="rec-header">
                 <div class="rec-title-group">
                     <span style="font-size: 1.2rem;">📹</span>
-                    <h3 class="rec-title">Demo Video Screen Recorder</h3>
+                    <h3 class="rec-title">Screen Recorder Studio</h3>
                     <div id="liveBadge" class="badge-live">
                         <div class="pulse-dot"></div>
                         <span>RECORDING</span>
@@ -197,7 +197,7 @@ def render_screen_recorder(theme: str = "dark") -> None:
                     <span>⏹️</span> Stop Recording
                 </button>
                 <button id="downloadBtn" class="btn-download" onclick="downloadVideo()">
-                    <span>⬇️</span> Download Video (Demo_Recording_P10.webm)
+                    <span>⬇️</span> Download Recorded Video (Recorded_Video.webm)
                 </button>
             </div>
 
@@ -306,7 +306,7 @@ def render_screen_recorder(theme: str = "dark") -> None:
                 const a = document.createElement('a');
                 a.style.display = 'none';
                 a.href = URL.createObjectURL(recordedBlob);
-                a.download = 'Demo_Recording_P10.webm';
+                a.download = 'Recorded_Video.webm';
                 document.body.appendChild(a);
                 a.click();
                 setTimeout(() => {
