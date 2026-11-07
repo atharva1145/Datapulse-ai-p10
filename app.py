@@ -25,7 +25,7 @@ from config.settings import (
     MAX_UPLOAD_SIZE_MB
 )
 from modules.data_loader import load_csv
-from modules.ui_components import render_page_header, get_logo_html
+from modules.ui_components import render_page_header, get_logo_html, apply_theme
 
 # Configure page layout and metadata
 st.set_page_config(
@@ -40,6 +40,9 @@ css_path = ROOT_DIR / "assets" / "styles.css"
 if css_path.exists():
     with open(css_path, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Apply dynamic active theme early before sidebar and components
+apply_theme()
 
 # Initialize Session State
 if "df" not in st.session_state:
@@ -76,7 +79,7 @@ with st.sidebar:
     <div class="sidebar-brand-card" style="display: flex; align-items: center; gap: 12px;">
         {get_logo_html(size=38)}
         <div style="flex: 1; min-width: 0;">
-            <div style="font-size: 1.15rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; line-height: 1.2;">
+            <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-primary, #FFFFFF); letter-spacing: -0.02em; line-height: 1.2;">
                 {APP_NAME}
             </div>
             <div style="font-size: 0.72rem; color: #38BDF8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px;">
@@ -148,14 +151,14 @@ with st.sidebar:
     if st.session_state["df"] is not None:
         st.markdown(f"""
         <div class="sidebar-status-box">
-            <div style="font-weight: 700; color: #F8FAFC; display: flex; align-items: center; justify-content: space-between;">
+            <div style="font-weight: 700; color: var(--text-primary, #F8FAFC); display: flex; align-items: center; justify-content: space-between;">
                 <span>ACTIVE DATASET</span>
                 <span style="display: flex; align-items: center; gap: 4px; color: #10B981; font-size: 0.7rem;">
                     <span class="status-dot-active"></span> READY
                 </span>
             </div>
             <div style="font-size: 0.85rem; color: #38BDF8; font-weight: 600; margin-top: 4px;">{st.session_state['dataset_name']}</div>
-            <div style="font-size: 0.75rem; color: #94A3B8; margin-top: 2px;">
+            <div style="font-size: 0.75rem; color: var(--text-secondary, #94A3B8); margin-top: 2px;">
                 {len(st.session_state['df']):,} rows • {len(st.session_state['df'].columns)} features
             </div>
         </div>
@@ -219,7 +222,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # Enterprise Feature Navigation Grid
-st.markdown("<div style='font-size: 1.15rem; font-weight: 700; color: #F8FAFC; margin-bottom: 14px;'>Core Architectural Studios</div>", unsafe_allow_html=True)
+st.markdown("<div style='font-size: 1.15rem; font-weight: 700; color: var(--text-primary, #F8FAFC); margin-bottom: 14px;'>Core Architectural Studios</div>", unsafe_allow_html=True)
 
 c1, c2 = st.columns(2)
 with c1:

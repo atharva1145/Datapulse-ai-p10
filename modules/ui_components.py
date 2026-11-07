@@ -40,13 +40,119 @@ def apply_theme() -> str:
     if theme == "Light (Clean)":
         st.markdown("""
         <style>
-        html, body, [class*="css"], .stApp {
+        :root {
+            --bg-base: #F8FAFC !important;
+            --bg-surface: #FFFFFF !important;
+            --bg-surface-elevated: #F1F5F9 !important;
+            --bg-surface-hover: #E2E8F0 !important;
+            --border-subtle: #E2E8F0 !important;
+            --border-medium: #CBD5E1 !important;
+            --border-accent: #6366F1 !important;
+            --text-primary: #0F172A !important;
+            --text-secondary: #475569 !important;
+            --text-tertiary: #64748B !important;
+            --sidebar-bg: #FFFFFF !important;
+            --sidebar-card-bg: #F8FAFC !important;
+            --sidebar-card-border: #E2E8F0 !important;
+            --sidebar-text: #0F172A !important;
+            --sidebar-text-muted: #64748B !important;
+            --hero-bg: linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 100%) !important;
+            --hero-border: #C7D2FE !important;
+            --health-bg: linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 100%) !important;
+            --health-border: #C7D2FE !important;
+            --health-title-color: #4338CA !important;
+            --health-val-gradient: linear-gradient(180deg, #1E1B4B 0%, #4F46E5 100%) !important;
+            --terminal-bg: #F8FAFC !important;
+            --terminal-header-bg: #F1F5F9 !important;
+            --popover-bg: #FFFFFF !important;
+            --popover-border: #CBD5E1 !important;
+            --popover-btn-bg: #FFFFFF !important;
+            --popover-btn-border: #CBD5E1 !important;
+            --popover-btn-color: #0F172A !important;
+        }
+
+        html, body, .stApp, [data-testid="stAppViewContainer"] {
             background-color: #F8FAFC !important;
             color: #0F172A !important;
         }
-        .page-main-heading {
+
+        /* Typography high contrast */
+        .stMarkdownContainer p, h1, h2, h3, h4, h5, h6, label {
             color: #0F172A !important;
         }
+
+        /* Sidebar Light Styling */
+        section[data-testid="stSidebar"] {
+            background-color: #FFFFFF !important;
+            border-right: 1px solid #E2E8F0 !important;
+        }
+        section[data-testid="stSidebar"] .stMarkdownContainer p,
+        section[data-testid="stSidebar"] label,
+        section[data-testid="stSidebar"] span {
+            color: #1E293B !important;
+        }
+        section[data-testid="stSidebar"] .sidebar-brand-card {
+            background: #F8FAFC !important;
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+        }
+        section[data-testid="stSidebar"] .sidebar-brand-card * {
+            color: #0F172A !important;
+        }
+        section[data-testid="stSidebar"] .sidebar-status-box {
+            background: #F8FAFC !important;
+            border: 1px solid #E2E8F0 !important;
+            border-left: 3px solid #10B981 !important;
+        }
+        section[data-testid="stSidebar"] .sidebar-status-box * {
+            color: #0F172A !important;
+        }
+
+        /* Hero Executive Card in Light Mode */
+        .hero-executive-card {
+            background: linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 100%) !important;
+            border: 1px solid #C7D2FE !important;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08) !important;
+        }
+        .hero-executive-title {
+            color: #0F172A !important;
+        }
+        .hero-executive-subtitle {
+            color: #475569 !important;
+        }
+        .hero-stats-row {
+            border-top: 1px solid #E2E8F0 !important;
+        }
+        .hero-stat-item {
+            color: #475569 !important;
+        }
+        .hero-stat-item strong {
+            color: #4F46E5 !important;
+        }
+
+        /* Module Cards in Light Mode */
+        .module-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
+        }
+        .module-card:hover {
+            border-color: #6366F1 !important;
+            box-shadow: 0 8px 16px -2px rgba(99, 102, 241, 0.12) !important;
+        }
+        .module-title {
+            color: #0F172A !important;
+        }
+        .module-desc {
+            color: #475569 !important;
+        }
+        .module-tag-badge {
+            background: #EEF2FF !important;
+            border: 1px solid #C7D2FE !important;
+            color: #4F46E5 !important;
+        }
+
+        /* Metric Boxes in Light Mode */
         .metric-box {
             background: #FFFFFF !important;
             border: 1px solid #E2E8F0 !important;
@@ -58,37 +164,75 @@ def apply_theme() -> str:
         .metric-tag {
             color: #64748B !important;
         }
-        .module-card {
+
+        /* Health Score Container in Light Mode */
+        .health-score-container {
+            background: linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 100%) !important;
+            border: 1px solid #C7D2FE !important;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08) !important;
+        }
+        .health-score-title {
+            color: #4338CA !important;
+        }
+        .health-score-value {
+            background: linear-gradient(180deg, #1E1B4B 0%, #4F46E5 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+
+        /* Empty State Card in Light Mode */
+        .empty-state-card {
             background: #FFFFFF !important;
+            border: 1px dashed #CBD5E1 !important;
+        }
+
+        /* Terminal Window in Light Mode */
+        .terminal-window {
+            background: #F8FAFC !important;
             border: 1px solid #E2E8F0 !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
         }
-        .module-title {
-            color: #0F172A !important;
+        .terminal-header {
+            background: #F1F5F9 !important;
+            border-bottom: 1px solid #E2E8F0 !important;
         }
-        .module-desc {
+        .terminal-title {
             color: #475569 !important;
         }
+        .terminal-body {
+            color: #0F172A !important;
+        }
+
+        /* Tabs in Light Mode */
         .stTabs [data-baseweb="tab-list"] {
             background-color: #F1F5F9 !important;
             border: 1px solid #E2E8F0 !important;
         }
         .stTabs [data-baseweb="tab"] {
-            color: #475569 !important;
+            color: #64748B !important;
         }
         .stTabs [aria-selected="true"] {
             background-color: #FFFFFF !important;
             color: #0F172A !important;
             border: 1px solid #CBD5E1 !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
         }
-        section[data-testid="stSidebar"] {
-            background-color: #F8FAFC !important;
-            border-right: 1px solid #E2E8F0 !important;
+
+        /* Data Tables & Expanders in Light Mode */
+        div[data-testid="stDataFrame"] {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
         }
-        section[data-testid="stSidebar"] * {
+        div[data-testid="stExpander"] {
+            background-color: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+        }
+        div[data-testid="stExpander"] summary {
             color: #0F172A !important;
         }
+
+        /* Form Controls in Light Mode */
         div[data-baseweb="select"] > div,
         div[data-baseweb="input"] > div,
         div[data-baseweb="textarea"] > div {
@@ -96,14 +240,21 @@ def apply_theme() -> str:
             border: 1px solid #CBD5E1 !important;
             color: #0F172A !important;
         }
-        div[data-testid="stAlert"] {
-            background-color: #FFFFFF !important;
-            border: 1px solid #E2E8F0 !important;
+        div[data-baseweb="select"] * {
+            color: #0F172A !important;
         }
-        div[data-testid="stDataFrame"] {
-            background: #FFFFFF !important;
-            border: 1px solid #E2E8F0 !important;
+        button[kind="secondary"] {
+            background: #F1F5F9 !important;
+            border: 1px solid #CBD5E1 !important;
+            color: #0F172A !important;
         }
+        button[kind="secondary"]:hover {
+            background: #E2E8F0 !important;
+            border-color: #6366F1 !important;
+            color: #6366F1 !important;
+        }
+
+        /* Popover Button & Body in Light Mode */
         button[data-testid="stPopoverButton"],
         div[data-testid="stPopover"] button {
             background: #FFFFFF !important;
@@ -123,6 +274,18 @@ def apply_theme() -> str:
             color: #0F172A !important;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
         }
+        div[data-testid="stPopoverBody"] * {
+            color: #0F172A !important;
+        }
+
+        /* Alert Boxes in Light Mode */
+        div[data-testid="stAlert"] {
+            background-color: #F8FAFC !important;
+            border: 1px solid #E2E8F0 !important;
+        }
+        div[data-testid="stAlert"] * {
+            color: #0F172A !important;
+        }
         </style>
         """, unsafe_allow_html=True)
         return "light"
@@ -131,23 +294,44 @@ def apply_theme() -> str:
         st.markdown("""
         <style>
         @media (prefers-color-scheme: light) {
-            html, body, [class*="css"], .stApp {
+            :root {
+                --bg-base: #F8FAFC !important;
+                --bg-surface: #FFFFFF !important;
+                --bg-surface-elevated: #F1F5F9 !important;
+                --border-subtle: #E2E8F0 !important;
+                --border-medium: #CBD5E1 !important;
+                --text-primary: #0F172A !important;
+                --text-secondary: #475569 !important;
+                --text-tertiary: #64748B !important;
+                --sidebar-bg: #FFFFFF !important;
+                --sidebar-card-bg: #F8FAFC !important;
+                --hero-bg: linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 100%) !important;
+                --health-bg: linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 100%) !important;
+            }
+            html, body, .stApp, [data-testid="stAppViewContainer"] {
                 background-color: #F8FAFC !important;
+                color: #0F172A !important;
+            }
+            .stMarkdownContainer p, h1, h2, h3, h4, label {
                 color: #0F172A !important;
             }
             .metric-box, .module-card, div[data-testid="stDataFrame"], div[data-testid="stAlert"] {
                 background: #FFFFFF !important;
                 border-color: #E2E8F0 !important;
             }
-            .metric-tag, .page-main-subtext, .module-desc {
+            .metric-num, .module-title {
+                color: #0F172A !important;
+            }
+            .metric-tag, .module-desc {
                 color: #475569 !important;
             }
             section[data-testid="stSidebar"] {
-                background-color: #F8FAFC !important;
+                background-color: #FFFFFF !important;
                 border-right-color: #E2E8F0 !important;
             }
-            section[data-testid="stSidebar"] * {
-                color: #0F172A !important;
+            section[data-testid="stSidebar"] .stMarkdownContainer p,
+            section[data-testid="stSidebar"] label {
+                color: #1E293B !important;
             }
         }
         </style>
@@ -231,8 +415,8 @@ def render_page_header(
                 "System Default": "💻 System"
             }
             curr_theme = st.session_state.get("app_theme", "Dark (Enterprise)")
-            chosen = st.selectbox(
-                "Theme",
+            chosen = st.radio(
+                "Interface Theme",
                 ["🌙 Dark", "☀️ Light", "💻 System"],
                 index=["🌙 Dark", "☀️ Light", "💻 System"].index(reverse_map.get(curr_theme, "🌙 Dark")),
                 key=f"pop_theme_{safe_key_suffix}",
@@ -259,10 +443,10 @@ def render_empty_state_warning() -> None:
     st.markdown("""
     <div class="empty-state-card">
         <div style="font-size: 2rem; margin-bottom: 6px;">📂</div>
-        <div style="font-size: 1.1rem; font-weight: 700; color: #F8FAFC; margin-bottom: 4px;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary, #F8FAFC); margin-bottom: 4px;">
             No CSV Dataset Currently Ingested
         </div>
-        <div style="font-size: 0.85rem; color: #94A3B8; max-width: 480px; margin: 0 auto 12px auto;">
+        <div style="font-size: 0.85rem; color: var(--text-secondary, #94A3B8); max-width: 480px; margin: 0 auto 12px auto;">
             Please select an official benchmark dataset (Iris, Titanic, Wine) in the sidebar or upload your own CSV file.
         </div>
     </div>
