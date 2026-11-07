@@ -35,13 +35,10 @@ from modules.data_profiler import profile_dataset
 from modules.ml_recommender import recommend_ml_task
 from modules.ui_components import render_page_header, render_empty_state_warning
 
-st.set_page_config(page_title="Synthetic Data Lab - DataPulse AI", page_icon="🧬", layout="wide")
-
-# Load CSS
-css_path = ROOT_DIR / "assets" / "styles.css"
-if css_path.exists():
-    with open(css_path, "r", encoding="utf-8") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+try:
+    st.set_page_config(page_title="Synthetic Data Lab - DataPulse AI", page_icon="🧬", layout="wide")
+except Exception:
+    pass
 
 render_page_header(
     page_title="Synthetic Data Lab & Generative AI Studio",

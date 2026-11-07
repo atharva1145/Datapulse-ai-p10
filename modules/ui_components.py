@@ -86,10 +86,43 @@ def apply_theme() -> str:
             background-color: #FFFFFF !important;
             border-right: 1px solid #E2E8F0 !important;
         }
+        section[data-testid="stSidebar"] a {
+            color: #1E293B !important;
+            font-weight: 500 !important;
+        }
+        section[data-testid="stSidebar"] a:hover {
+            background-color: #F1F5F9 !important;
+            color: #4F46E5 !important;
+        }
+        section[data-testid="stSidebar"] a[aria-current="page"] {
+            background-color: #EEF2FF !important;
+            color: #4F46E5 !important;
+            font-weight: 700 !important;
+        }
+        section[data-testid="stSidebar"] a * {
+            color: inherit !important;
+        }
         section[data-testid="stSidebar"] .stMarkdownContainer p,
         section[data-testid="stSidebar"] label,
-        section[data-testid="stSidebar"] span {
+        section[data-testid="stSidebar"] label *,
+        section[data-testid="stSidebar"] span,
+        section[data-testid="stSidebar"] p,
+        section[data-testid="stSidebar"] div[role="radiogroup"] label,
+        section[data-testid="stSidebar"] div[role="radiogroup"] label *,
+        section[data-testid="stSidebar"] .stSelectbox label,
+        section[data-testid="stSidebar"] .stSelectbox label * {
             color: #1E293B !important;
+            font-weight: 600 !important;
+        }
+        section[data-testid="stSidebar"] button[kind="secondary"] {
+            background-color: #F8FAFC !important;
+            border: 1px solid #CBD5E1 !important;
+            color: #0F172A !important;
+        }
+        section[data-testid="stSidebar"] button[kind="secondary"]:hover {
+            background-color: #EEF2FF !important;
+            border-color: #6366F1 !important;
+            color: #4F46E5 !important;
         }
         section[data-testid="stSidebar"] .sidebar-brand-card {
             background: #F8FAFC !important;
@@ -106,6 +139,28 @@ def apply_theme() -> str:
         }
         section[data-testid="stSidebar"] .sidebar-status-box * {
             color: #0F172A !important;
+        }
+
+        /* Tables & Data in Light Mode */
+        div[data-testid="stTable"],
+        div[data-testid="stTable"] table,
+        div[data-testid="stTable"] tbody,
+        div[data-testid="stTable"] tr,
+        div[data-testid="stTable"] th,
+        div[data-testid="stTable"] td,
+        div[data-testid="stTable"] * {
+            color: #0F172A !important;
+            background-color: #FFFFFF !important;
+        }
+        div[data-testid="stTable"] th {
+            background-color: #F1F5F9 !important;
+            color: #0F172A !important;
+            border-bottom: 2px solid #CBD5E1 !important;
+            font-weight: 700 !important;
+        }
+        div[data-testid="stTable"] td {
+            border-bottom: 1px solid #E2E8F0 !important;
+            color: #1E293B !important;
         }
 
         /* Hero Executive Card in Light Mode */

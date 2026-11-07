@@ -559,42 +559,72 @@ div[data-testid="stAlert"] {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Streamlit Dataframes */
-div[data-testid="stDataFrame"] {
-    border: 1px solid #1E293B !important;
+/* Streamlit Dataframes & Tables */
+div[data-testid="stDataFrame"],
+div[data-testid="stTable"] {
+    border: 1px solid var(--border-subtle, #1E293B) !important;
     border-radius: 10px !important;
-    background: #0F172A !important;
+    background: var(--bg-surface, #0F172A) !important;
     overflow: hidden !important;
+}
+
+div[data-testid="stTable"] table {
+    background: transparent !important;
+    color: var(--text-primary, #F8FAFC) !important;
+}
+
+div[data-testid="stTable"] th {
+    background: var(--bg-surface-elevated, #1E293B) !important;
+    color: var(--text-primary, #F8FAFC) !important;
+    font-weight: 700 !important;
+    border-bottom: 1px solid var(--border-subtle, #334155) !important;
+}
+
+div[data-testid="stTable"] td {
+    color: var(--text-secondary, #E2E8F0) !important;
+    border-bottom: 1px solid var(--border-subtle, #1E293B) !important;
 }
 
 /* Sidebar Ultra-Clean Aesthetics */
 section[data-testid="stSidebar"] {
-    background-color: #0B0F19 !important;
-    border-right: 1px solid #1E293B !important;
+    background-color: var(--sidebar-bg, #0B0F19) !important;
+    border-right: 1px solid var(--border-subtle, #1E293B) !important;
 }
 
-section[data-testid="stSidebar"] * {
-    color: #E2E8F0 !important;
+section[data-testid="stSidebar"] a {
+    color: var(--sidebar-text, #E2E8F0) !important;
+}
+
+section[data-testid="stSidebar"] a[aria-current="page"] {
+    background: rgba(99, 102, 241, 0.15) !important;
+    color: #818CF8 !important;
 }
 
 section[data-testid="stSidebar"] .stSelectbox label,
 section[data-testid="stSidebar"] .stRadio label {
     font-size: 0.8rem !important;
     font-weight: 600 !important;
-    color: #94A3B8 !important;
+    color: var(--sidebar-text-muted, #94A3B8) !important;
+}
+
+section[data-testid="stSidebar"] button {
+    padding: 3px 4px !important;
+    font-size: 0.74rem !important;
+    min-height: 30px !important;
+    white-space: nowrap !important;
 }
 
 .sidebar-brand-card {
-    background: #111827;
-    border: 1px solid #1E293B;
+    background: var(--sidebar-card-bg, #111827);
+    border: 1px solid var(--sidebar-card-border, #1E293B);
     border-radius: 10px;
     padding: 14px 16px;
     margin-bottom: 20px;
 }
 
 .sidebar-status-box {
-    background: #111827;
-    border: 1px solid #1E293B;
+    background: var(--sidebar-card-bg, #111827);
+    border: 1px solid var(--sidebar-card-border, #1E293B);
     border-left: 3px solid #10B981;
     border-radius: 8px;
     padding: 10px 14px;

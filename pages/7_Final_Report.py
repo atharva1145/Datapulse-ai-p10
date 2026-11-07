@@ -21,13 +21,10 @@ from modules.report_generator import compile_pdf_report
 from modules.ui_components import render_page_header
 from config.settings import DOCS_DIR, STUDENT_NAME, ROLL_NUMBER
 
-st.set_page_config(page_title="Final Report - DataPulse AI", page_icon="📑", layout="wide")
-
-# Load CSS
-css_path = ROOT_DIR / "assets" / "styles.css"
-if css_path.exists():
-    with open(css_path, "r", encoding="utf-8") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+try:
+    st.set_page_config(page_title="Final Report - DataPulse AI", page_icon="📑", layout="wide")
+except Exception:
+    pass
 
 render_page_header(
     page_title="Academic Deliverables & PDF Report",

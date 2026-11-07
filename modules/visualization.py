@@ -154,11 +154,18 @@ def plot_categorical_distribution(df: pd.DataFrame, col: str, max_categories: in
     return apply_plotly_enterprise_theme(fig)
 
 
-def plot_correlation_heatmap(df: pd.DataFrame, numerical_cols: List[str]) -> Optional[go.Figure]:
+def plot_correlation_heatmap(
+    df: pd.DataFrame,
+    numerical_cols: Optional[List[str]] = None,
+    columns: Optional[List[str]] = None
+) -> Optional[go.Figure]:
     """Generates an interactive correlation matrix heatmap for numerical columns."""
-    if len(numerical_cols) < 2:
+    cols = numerical_cols if numerical_cols is not None else columns
+    if cols is None:
+        cols = list(df.select_dtypes(include=[np.number]).columns)
+    if len(cols) < 2:
         return None
-    corr = df[numerical_cols].corr().round(2)
+    corr = df[cols].corr().round(2)
     fig = px.imshow(
         corr,
         text_auto=True,
@@ -169,7 +176,7 @@ def plot_correlation_heatmap(df: pd.DataFrame, numerical_cols: List[str]) -> Opt
         title="Feature Correlation Matrix (Pearson)"
     )
     fig.update_layout(
-        height=max(420, len(numerical_cols) * 44)
+        height=max(420, len(cols) * 44)
     )
     return apply_plotly_enterprise_theme(fig)
 

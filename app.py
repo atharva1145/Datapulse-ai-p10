@@ -147,6 +147,34 @@ with st.sidebar:
                     st.session_state["target_column"] = meta["columns"][-1]
                     st.rerun()
 
+    # 1-Click Fast Benchmarks
+    st.markdown("<div style='font-size: 0.72rem; font-weight: 700; color: var(--text-tertiary, #64748B); text-transform: uppercase; margin-top: 10px; margin-bottom: 6px;'>Fast Benchmarks</div>", unsafe_allow_html=True)
+    sb_c1, sb_c2, sb_c3 = st.columns(3)
+    with sb_c1:
+        if st.button("🌸 Iris", use_container_width=True, help="Load 150 rows multiclass benchmark"):
+            df_i, meta_i, _ = load_csv(SAMPLE_DATA_DIR / "iris.csv")
+            st.session_state["df"] = df_i
+            st.session_state["metadata"] = meta_i
+            st.session_state["dataset_name"] = "Iris Flower Dataset"
+            st.session_state["target_column"] = "species"
+            st.rerun()
+    with sb_c2:
+        if st.button("🚢 Titanic", use_container_width=True, help="Load 891 rows binary imbalance benchmark"):
+            df_t, meta_t, _ = load_csv(SAMPLE_DATA_DIR / "titanic.csv")
+            st.session_state["df"] = df_t
+            st.session_state["metadata"] = meta_t
+            st.session_state["dataset_name"] = "Titanic Survival Dataset"
+            st.session_state["target_column"] = "Survived"
+            st.rerun()
+    with sb_c3:
+        if st.button("🍷 Wine", use_container_width=True, help="Load 1,599 rows regression benchmark"):
+            df_w, meta_w, _ = load_csv(SAMPLE_DATA_DIR / "winequality_red.csv")
+            st.session_state["df"] = df_w
+            st.session_state["metadata"] = meta_w
+            st.session_state["dataset_name"] = "Wine Quality Dataset"
+            st.session_state["target_column"] = "quality"
+            st.rerun()
+
     # Active Dataset Status Box
     if st.session_state["df"] is not None:
         st.markdown(f"""
@@ -165,128 +193,17 @@ with st.sidebar:
         """, unsafe_allow_html=True)
 
 # ==============================================================================
-# MAIN PAGE: ENTERPRISE TOP APP BAR & HERO SECTION
+# MULTIPAGE ROUTER (EXACT 7 OPTIONS)
 # ==============================================================================
-render_page_header(
-    page_title="Platform Ingestion & Overview",
-    module_tag="CORE PLATFORM",
-    subtitle="Continuous Assessment P10 | Autonomous CSV Profiling, ML Task Recommendation & AI Analytics"
-)
+pages = [
+    st.Page("pages/1_Visual_Analytics.py", title="Visual Analytics", icon="📈", default=True),
+    st.Page("pages/2_ML_Recommendations.py", title="ML", icon="🤖"),
+    st.Page("pages/3_AI_Data_Assistant.py", title="AI Data Assistant", icon="💬"),
+    st.Page("pages/4_Column_Intelligence.py", title="Column Intelligence", icon="🧠"),
+    st.Page("pages/5_Synthetic_Data_Lab.py", title="Synthetic Data Lab", icon="🧬"),
+    st.Page("pages/6_Responsible_AI.py", title="Responsible AI", icon="🛡️"),
+    st.Page("pages/7_Final_Report.py", title="Final", icon="📑"),
+]
 
-# 1-Click Fast Dataset Switcher
-col_btn1, col_btn2, col_btn3 = st.columns(3)
-with col_btn1:
-    if st.button("🌸 Load Iris (Multiclass)", use_container_width=True):
-        df_i, meta_i, _ = load_csv(SAMPLE_DATA_DIR / "iris.csv")
-        st.session_state["df"] = df_i
-        st.session_state["metadata"] = meta_i
-        st.session_state["dataset_name"] = "Iris Flower Dataset"
-        st.session_state["target_column"] = "species"
-        st.toast("✅ Ingested Iris Dataset (150 rows × 5 features)")
-        st.rerun()
-
-with col_btn2:
-    if st.button("🚢 Load Titanic (Binary / Imbalance)", use_container_width=True):
-        df_t, meta_t, _ = load_csv(SAMPLE_DATA_DIR / "titanic.csv")
-        st.session_state["df"] = df_t
-        st.session_state["metadata"] = meta_t
-        st.session_state["dataset_name"] = "Titanic Survival Dataset"
-        st.session_state["target_column"] = "Survived"
-        st.toast("✅ Ingested Titanic Dataset (891 rows × 12 features)")
-        st.rerun()
-
-with col_btn3:
-    if st.button("🍷 Load Wine Quality (Regression)", use_container_width=True):
-        df_w, meta_w, _ = load_csv(SAMPLE_DATA_DIR / "winequality_red.csv")
-        st.session_state["df"] = df_w
-        st.session_state["metadata"] = meta_w
-        st.session_state["dataset_name"] = "Wine Quality Dataset"
-        st.session_state["target_column"] = "quality"
-        st.toast("✅ Ingested Wine Quality Dataset (1,599 rows × 12 features)")
-        st.rerun()
-
-st.markdown(f"""
-<div class="hero-executive-card">
-    <div class="hero-executive-title">Autonomous Tabular Intelligence &amp; ML Recommender</div>
-    <div class="hero-executive-subtitle">
-        Upload or select any CSV dataset to instantly generate statistical health profiles, optimal ML algorithms, 
-        natural-language query synthesis with AST security guardrails, Sentence-BERT semantic column embeddings, 
-        and PyTorch CTGAN synthetic tabular data.
-    </div>
-    <div class="hero-stats-row">
-        <div class="hero-stat-item">Paradigm: <strong>Generative &amp; Discriminative AI</strong></div>
-        <div class="hero-stat-item">Project Code: <strong>Problem P10</strong></div>
-        <div class="hero-stat-item">Engine: <strong>Gemini 2.5 + PyTorch CTGAN</strong></div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# Enterprise Feature Navigation Grid
-st.markdown("<div style='font-size: 1.15rem; font-weight: 700; color: var(--text-primary, #F8FAFC); margin-bottom: 14px;'>Core Architectural Studios</div>", unsafe_allow_html=True)
-
-c1, c2 = st.columns(2)
-with c1:
-    st.markdown("""
-    <div class="module-card">
-        <div class="module-header">
-            <span class="module-tag-badge">MODULE U1</span>
-            <span class="module-title">Visual Analytics &amp; ML Lifecycle</span>
-        </div>
-        <div class="module-desc">
-            Automated column distributions, IQR outlier detection, correlation heatmaps, 
-            and deterministic machine learning task recommendation with candidate models.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with c2:
-    st.markdown("""
-    <div class="module-card">
-        <div class="module-header">
-            <span class="module-tag-badge">MODULE U2</span>
-            <span class="module-title">LLM Data Assistant &amp; AST Sandbox</span>
-        </div>
-        <div class="module-desc">
-            Natural language conversational dataset queries powered by Gemini 2.5 Flash, 
-            verified through an <b>AST security allowlist</b> blocking malicious imports and writes.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
-
-c3, c4 = st.columns(2)
-with c3:
-    st.markdown("""
-    <div class="module-card">
-        <div class="module-header">
-            <span class="module-tag-badge">MODULE U3</span>
-            <span class="module-title">Column Intelligence &amp; Multimodal Vision</span>
-        </div>
-        <div class="module-desc">
-            Sentence-BERT (384-d) semantic column clustering and Gemini Multimodal Vision 
-            chart reasoning for skewness, central tendencies, and anomalies.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with c4:
-    st.markdown("""
-    <div class="module-card">
-        <div class="module-header">
-            <span class="module-tag-badge">MODULE U4 &amp; U5</span>
-            <span class="module-title">CTGAN Synthetic Data &amp; Responsible AI</span>
-        </div>
-        <div class="module-desc">
-            PyTorch-based CTGAN synthetic tabular generation with Kolmogorov-Smirnov test 
-            fidelity validation, automated PII auditing, and class imbalance alerts.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Active Dataset Overview Table
-if st.session_state["df"] is not None:
-    st.markdown("<div style='height: 22px;'></div>", unsafe_allow_html=True)
-    st.markdown(f"### 📋 Active Dataset Inspection: `{st.session_state['dataset_name']}`")
-    st.dataframe(st.session_state["df"].head(10), use_container_width=True)
-    st.caption(f"Displaying top 10 rows of {len(st.session_state['df']):,} records. Navigate via the sidebar to access dedicated analytics studios.")
+pg = st.navigation(pages, position="sidebar")
+pg.run()
