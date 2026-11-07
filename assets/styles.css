@@ -28,6 +28,33 @@
 /* ==============================================================================
    GLOBAL STREAMLIT OVERRIDES
    ============================================================================== */
+html {
+    scroll-behavior: smooth !important;
+}
+
+* {
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.25);
+    border-radius: 9999px;
+    transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.55);
+}
+
 html, body, [class*="css"] {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     color: var(--text-primary) !important;
@@ -49,11 +76,24 @@ footer {
     display: none !important;
 }
 
+/* Smooth Page Load Animation */
+@keyframes smoothContentFade {
+    0% {
+        opacity: 0.7;
+        transform: translateY(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Ensure main block container has proper breathing room */
 .main .block-container {
     padding-top: 1.5rem !important;
     padding-bottom: 3rem !important;
     max-width: 96% !important;
+    animation: smoothContentFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ==============================================================================
@@ -460,13 +500,17 @@ button[kind="primary"] {
     border-radius: 8px !important;
     padding: 8px 18px !important;
     box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35) !important;
-    transition: all 0.2s ease !important;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 button[kind="primary"]:hover {
-    transform: translateY(-1px) !important;
+    transform: translateY(-1.5px) !important;
     box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45) !important;
     border-color: #818CF8 !important;
+}
+
+button[kind="primary"]:active {
+    transform: scale(0.98) !important;
 }
 
 button[kind="secondary"] {
@@ -477,12 +521,17 @@ button[kind="secondary"] {
     font-size: 0.85rem !important;
     border-radius: 8px !important;
     padding: 8px 18px !important;
-    transition: all 0.2s ease !important;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 button[kind="secondary"]:hover {
     background: #334155 !important;
     border-color: #475569 !important;
+    transform: translateY(-1px) !important;
+}
+
+button[kind="secondary"]:active {
+    transform: scale(0.98) !important;
 }
 
 /* Inputs, Selectboxes & Textareas */
@@ -493,6 +542,7 @@ div[data-baseweb="textarea"] > div {
     border: 1px solid #1E293B !important;
     border-radius: 8px !important;
     color: #F8FAFC !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease !important;
 }
 
 div[data-baseweb="select"] > div:focus-within,
@@ -593,11 +643,22 @@ section[data-testid="stSidebar"] {
 
 section[data-testid="stSidebar"] a {
     color: var(--sidebar-text, #E2E8F0) !important;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    margin-bottom: 2px !important;
+}
+
+section[data-testid="stSidebar"] a:hover {
+    transform: translateX(4px) !important;
+    background: rgba(99, 102, 241, 0.08) !important;
 }
 
 section[data-testid="stSidebar"] a[aria-current="page"] {
     background: rgba(99, 102, 241, 0.15) !important;
     color: #818CF8 !important;
+    font-weight: 600 !important;
+    border-left: 3px solid #6366F1 !important;
 }
 
 section[data-testid="stSidebar"] .stSelectbox label,
@@ -678,13 +739,13 @@ div[data-testid="stPopover"] button:hover {
     border-color: #6366F1 !important;
     background: #334155 !important;
     color: #818CF8 !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+    transform: translateY(-1.5px) !important;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35) !important;
 }
 
 button[data-testid="stPopoverButton"]:active,
 div[data-testid="stPopover"] button:active {
-    transform: translateY(0px) !important;
+    transform: scale(0.92) !important;
 }
 
 /* REMOVE EXPAND/DOWN ARROW COMPLETELY (Material icon 'expand_more', aria-hidden wrappers, SVGs) */
@@ -722,11 +783,46 @@ div[data-testid="stPopover"] button div[data-testid="stMarkdownContainer"] p {
     text-align: center !important;
 }
 
+@keyframes popoverSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.97);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 div[data-testid="stPopoverBody"] {
-    background: #0F172A !important;
-    border: 1px solid #334155 !important;
+    background: var(--popover-bg, #0F172A) !important;
+    border: 1px solid var(--border-medium, #334155) !important;
     border-radius: 12px !important;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.45) !important;
     padding: 16px !important;
     min-width: 270px !important;
+    animation: popoverSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+}
+
+/* Modal Dialog Smoothness */
+@keyframes dialogScaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+div[data-testid="stDialog"] {
+    animation: dialogScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+div[data-testid="stModal"] {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
 }

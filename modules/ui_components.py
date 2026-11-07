@@ -89,15 +89,18 @@ def apply_theme() -> str:
         section[data-testid="stSidebar"] a {
             color: #1E293B !important;
             font-weight: 500 !important;
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
         section[data-testid="stSidebar"] a:hover {
             background-color: #F1F5F9 !important;
             color: #4F46E5 !important;
+            transform: translateX(4px) !important;
         }
         section[data-testid="stSidebar"] a[aria-current="page"] {
             background-color: #EEF2FF !important;
             color: #4F46E5 !important;
             font-weight: 700 !important;
+            border-left: 3px solid #6366F1 !important;
         }
         section[data-testid="stSidebar"] a * {
             color: inherit !important;
@@ -327,7 +330,10 @@ def apply_theme() -> str:
             background: #FFFFFF !important;
             border: 1px solid #CBD5E1 !important;
             color: #0F172A !important;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
+            box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.15) !important;
+            animation: popoverSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
         }
         div[data-testid="stPopoverBody"] * {
             color: #0F172A !important;
