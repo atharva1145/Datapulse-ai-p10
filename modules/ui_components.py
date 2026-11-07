@@ -156,7 +156,7 @@ def render_page_header(
         st.markdown(f"""
         <div style="display: flex; align-items: center; gap: 8px;">
             <span style="font-size: 1.3rem;">📊</span>
-            <span style="font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em;">CSV INSIGHT AI</span>
+            <span style="font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em;">DataPulse AI</span>
             <span style="color: #64748B; font-size: 0.85rem;">/</span>
             <span style="font-size: 0.88rem; font-weight: 600; color: #818CF8;">{page_title}</span>
         </div>

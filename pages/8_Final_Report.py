@@ -21,7 +21,7 @@ from modules.report_generator import compile_pdf_report
 from modules.ui_components import render_page_header
 from config.settings import DOCS_DIR, STUDENT_NAME, ROLL_NUMBER
 
-st.set_page_config(page_title="Final Report - CSV INSIGHT AI", page_icon="📑", layout="wide")
+st.set_page_config(page_title="Final Report - DataPulse AI", page_icon="📑", layout="wide")
 
 # Load CSS
 css_path = ROOT_DIR / "assets" / "styles.css"

@@ -1,5 +1,5 @@
 ---
-title: CSV Dataset Insight P10
+title: DataPulse AI (P10)
 emoji: 📊
 colorFrom: indigo
 colorTo: purple
@@ -10,8 +10,8 @@ pinned: false
 license: mit
 ---
 
-# CSV INSIGHT AI (P10)
-### AI-Powered Dataset Intelligence & Machine Learning Recommendation Platform
+# DataPulse AI (P10)
+### Autonomous Tabular Dataset Intelligence & Machine Learning Recommendation Platform
 
 **Student:** Atharva Shelar | **Roll No:** 10 | **Class:** AIA-3 [LY]  
 **Academic Subject:** Generative AI Continuous Assessment (P10)  

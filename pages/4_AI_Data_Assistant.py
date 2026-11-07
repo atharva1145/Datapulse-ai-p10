@@ -25,7 +25,7 @@ from modules.code_validator import validate_python_code
 from modules.safe_executor import execute_code_safely
 from modules.ui_components import render_page_header, render_empty_state_warning
 
-st.set_page_config(page_title="AI Data Assistant - CSV INSIGHT AI", page_icon="💬", layout="wide")
+st.set_page_config(page_title="AI Data Assistant - DataPulse AI", page_icon="💬", layout="wide")
 
 # Load CSS
 css_path = ROOT_DIR / "assets" / "styles.css"

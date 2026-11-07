@@ -1,4 +1,4 @@
-# MODEL & DATASET CARD: CSV INSIGHT AI (P10)
+# MODEL & DATASET CARD: DataPulse AI (P10)
 **Project Title:** CSV Dataset Insight & Task Recommender  
 **Student:** Atharva Shelar (Roll No: 10)  
 **Academic Subject:** Generative AI  

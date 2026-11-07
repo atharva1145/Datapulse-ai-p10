@@ -1,5 +1,5 @@
-# 2–3 Minute Demonstration Video Script: CSV INSIGHT AI (P10)
-**Project Title:** CSV Dataset Insight & Task Recommender  
+# 2–3 Minute Demonstration Video Script: DataPulse AI (P10)
+**Project Title:** DataPulse AI – Autonomous CSV Dataset Insight & Task Recommender  
 **Student Name:** Atharva Shelar  
 **Roll Number:** 10 | **Class:** AIA-3 [LY]  
 **Subject:** Generative AI Continuous Assessment  
@@ -18,9 +18,9 @@
 ## ⏱️ Timed Segment-by-Segment Script
 
 ### [0:00 – 0:15] Section 1: Introduction
-- **What to Show on Screen:** Home page (`app.py`), showing the header: **CSV INSIGHT AI**, Student Name: *Atharva Shelar*, Roll No: *10*, P10.
+- **What to Show on Screen:** Home page (`app.py`), showing the header: **DataPulse AI**, Problem P10.
 - **What to Say:**
-  > "Hello everyone, my name is Atharva Shelar, Roll Number 10. Today I am presenting my Generative AI Continuous Assessment project, P10: **CSV Dataset Insight & Task Recommender**. The core objective of this application is to profile any uploaded tabular CSV dataset, recommend the appropriate machine learning task, and provide an enterprise-grade AI analytics pipeline covering all syllabus units."
+  > "Hello everyone, my name is Atharva Shelar, Roll Number 10. Today I am presenting DataPulse AI: an autonomous tabular dataset insight and machine learning recommendation platform for Continuous Assessment P10. The core objective of this application is to profile any uploaded tabular CSV dataset, recommend the appropriate machine learning task, and provide an enterprise-grade AI analytics pipeline covering all syllabus units."
 
 ---
 

@@ -18,8 +18,8 @@ ASSETS_DIR = BASE_DIR / "assets"
 DOCS_DIR = BASE_DIR / "docs"
 
 # Application Metadata
-APP_NAME = "CSV INSIGHT AI"
-APP_SUBTITLE = "AI-Powered Dataset Intelligence & Machine Learning Recommendation Platform"
+APP_NAME = "DataPulse AI"
+APP_SUBTITLE = "Autonomous Tabular Dataset Intelligence & ML Task Recommender"
 STUDENT_NAME = "Atharva Shelar"
 ROLL_NUMBER = "10"
 COURSE_NAME = "Generative AI"

@@ -22,7 +22,7 @@ from modules.lifecycle import get_ml_lifecycle_stages, get_genai_vs_discriminati
 from modules.visualization import plot_class_probability_distribution
 from modules.ui_components import render_page_header, render_empty_state_warning
 
-st.set_page_config(page_title="ML Recommender - CSV INSIGHT AI", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="ML Recommender - DataPulse AI", page_icon="🤖", layout="wide")
 
 # Load CSS
 css_path = ROOT_DIR / "assets" / "styles.css"

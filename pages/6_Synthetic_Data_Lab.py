@@ -35,7 +35,7 @@ from modules.data_profiler import profile_dataset
 from modules.ml_recommender import recommend_ml_task
 from modules.ui_components import render_page_header, render_empty_state_warning
 
-st.set_page_config(page_title="Synthetic Data Lab - CSV INSIGHT AI", page_icon="🧬", layout="wide")
+st.set_page_config(page_title="Synthetic Data Lab - DataPulse AI", page_icon="🧬", layout="wide")
 
 # Load CSS
 css_path = ROOT_DIR / "assets" / "styles.css"

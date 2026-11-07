@@ -290,7 +290,7 @@ def compile_pdf_report(
     # =========================================================================
     story.append(Paragraph("<b>10. Conclusion</b>", h1_style))
     story.append(Paragraph(
-        "CSV INSIGHT AI successfully demonstrates an end-to-end, responsible Generative AI platform for tabular dataset intelligence. "
+        "DataPulse AI successfully demonstrates an end-to-end, responsible Generative AI platform for tabular dataset intelligence. "
         "By fusing deterministic heuristics with Google Gemini 2.5 Flash, Sentence-BERT semantic embeddings, and PyTorch CTGAN tabular synthesis, "
         "the application satisfies all five practical tasks (U1–U5) and syllabus layers without fabricated metrics. "
         "The system provides rigorous AST security sandboxing, empirical statistical validation, and an intuitive Streamlit interface for academic evaluation.",

@@ -21,7 +21,7 @@ from modules.visualization import plot_missing_values
 from modules.ml_recommender import recommend_ml_task
 from modules.ui_components import render_page_header, render_empty_state_warning
 
-st.set_page_config(page_title="Dashboard - CSV INSIGHT AI", page_icon="📊", layout="wide")
+st.set_page_config(page_title="Dashboard - DataPulse AI", page_icon="📊", layout="wide")
 
 # Load CSS
 css_path = ROOT_DIR / "assets" / "styles.css"

@@ -1,4 +1,4 @@
-# Viva Voce Preparation Guide: CSV INSIGHT AI (P10)
+# Viva Voce Preparation Guide: DataPulse AI (P10)
 **Student Name:** Atharva Shelar | **Roll Number:** 10 | **Class:** AIA-3 [LY]  
 **Academic Subject:** Generative AI Continuous Assessment  
 **Project:** P10 – CSV Dataset Insight & Task Recommender  

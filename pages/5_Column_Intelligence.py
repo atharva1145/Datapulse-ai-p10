@@ -28,7 +28,7 @@ from modules.visualization import create_static_distribution_plot
 from modules.vision_analyzer import interpret_chart_with_vision
 from modules.ui_components import render_page_header, render_empty_state_warning
 
-st.set_page_config(page_title="Column Intelligence - CSV INSIGHT AI", page_icon="🧠", layout="wide")
+st.set_page_config(page_title="Column Intelligence - DataPulse AI", page_icon="🧠", layout="wide")
 
 # Load CSS
 css_path = ROOT_DIR / "assets" / "styles.css"

@@ -1,4 +1,4 @@
-# System Architecture Blueprint: CSV INSIGHT AI (P10)
+# System Architecture Blueprint: DataPulse AI (P10)
 **Project Title:** CSV Dataset Insight & Task Recommender  
 **Student:** Atharva Shelar (Roll No: 10)  
 **Subject:** Generative AI  
