@@ -193,7 +193,7 @@ with st.sidebar:
         """, unsafe_allow_html=True)
 
 # ==============================================================================
-# MULTIPAGE ROUTER (EXACT 7 OPTIONS)
+# MULTIPAGE ROUTER (EXACT 6 CORE MODULES)
 # ==============================================================================
 pages = [
     st.Page("pages/1_Visual_Analytics.py", title="Visual Analytics", icon="📈", default=True),
@@ -202,7 +202,6 @@ pages = [
     st.Page("pages/4_Column_Intelligence.py", title="Column Intelligence", icon="🧠"),
     st.Page("pages/5_Synthetic_Data_Lab.py", title="Synthetic Data Lab", icon="🧬"),
     st.Page("pages/6_Responsible_AI.py", title="Responsible AI", icon="🛡️"),
-    st.Page("pages/7_Final_Report.py", title="Final", icon="📑"),
 ]
 
 pg = st.navigation(pages, position="sidebar")
