@@ -604,26 +604,92 @@ section[data-testid="stSidebar"] .stRadio label {
 
 
 /* ==============================================================================
-   3-DOTS (⋮) OVERFLOW POPOVER MENU STYLING
+   3-DOTS (⋮) OVERFLOW POPOVER MENU STYLING (FLUSH TOP RIGHT, NO DOWN ARROW)
    ============================================================================== */
-div[data-testid="stPopover"] > button {
-    font-size: 1.25rem !important;
-    font-weight: 800 !important;
-    padding: 2px 10px !important;
+header[data-testid="stHeader"] {
+    pointer-events: none !important;
+    background: transparent !important;
+}
+header[data-testid="stHeader"] * {
+    pointer-events: auto !important;
+}
+
+/* Dock 3-dots action menu in the absolute top right corner of viewport */
+div[data-testid="stPopover"] {
+    position: fixed !important;
+    top: 14px !important;
+    right: 20px !important;
+    z-index: 999999 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+button[data-testid="stPopoverButton"],
+div[data-testid="stPopover"] button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    max-width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
     border-radius: 8px !important;
     background: #1E293B !important;
     border: 1px solid #334155 !important;
     color: #F8FAFC !important;
-    min-width: 42px !important;
-    height: 38px !important;
-    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
 }
 
-div[data-testid="stPopover"] > button:hover {
+button[data-testid="stPopoverButton"]:hover,
+div[data-testid="stPopover"] button:hover {
     border-color: #6366F1 !important;
     background: #334155 !important;
     color: #818CF8 !important;
     transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+button[data-testid="stPopoverButton"]:active,
+div[data-testid="stPopover"] button:active {
+    transform: translateY(0px) !important;
+}
+
+/* REMOVE EXPAND/DOWN ARROW COMPLETELY (Material icon 'expand_more', aria-hidden wrappers, SVGs) */
+button[data-testid="stPopoverButton"] [data-testid="stIconMaterial"],
+button[data-testid="stPopoverButton"] div[aria-hidden="true"],
+button[data-testid="stPopoverButton"] svg,
+button[data-testid="stPopoverButton"] [data-testid="stIconChevronDown"],
+button[data-testid="stPopoverButton"] [data-testid="stIcon"],
+div[data-testid="stPopover"] button [data-testid="stIconMaterial"],
+div[data-testid="stPopover"] button div[aria-hidden="true"],
+div[data-testid="stPopover"] button svg {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Center only the 3 vertical dots perfectly inside the button */
+button[data-testid="stPopoverButton"] .stMarkdownContainer,
+button[data-testid="stPopoverButton"] div[data-testid="stMarkdownContainer"],
+button[data-testid="stPopoverButton"] div[data-testid="stMarkdownContainer"] p,
+div[data-testid="stPopover"] button div[data-testid="stMarkdownContainer"] p {
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
 }
 
 div[data-testid="stPopoverBody"] {
@@ -632,4 +698,5 @@ div[data-testid="stPopoverBody"] {
     border-radius: 12px !important;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
     padding: 16px !important;
+    min-width: 270px !important;
 }

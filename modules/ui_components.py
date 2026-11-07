@@ -104,6 +104,25 @@ def apply_theme() -> str:
             background: #FFFFFF !important;
             border: 1px solid #E2E8F0 !important;
         }
+        button[data-testid="stPopoverButton"],
+        div[data-testid="stPopover"] button {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            color: #0F172A !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+        }
+        button[data-testid="stPopoverButton"]:hover,
+        div[data-testid="stPopover"] button:hover {
+            background: #F1F5F9 !important;
+            border-color: #6366F1 !important;
+            color: #6366F1 !important;
+        }
+        div[data-testid="stPopoverBody"] {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            color: #0F172A !important;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
         </style>
         """, unsafe_allow_html=True)
         return "light"
@@ -159,7 +178,7 @@ def render_page_header(
     apply_theme()
 
     top_col_brand, top_col_dataset, top_col_menu = st.columns(
-        [5.2, 3.8, 1.0],
+        [5.5, 4.3, 0.2],
         vertical_alignment="center"
     )
 
