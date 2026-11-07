@@ -44,7 +44,7 @@ from config.settings import (
 
 def compile_pdf_report(
     output_path: Path,
-    github_url: str = "https://github.com/atharva-shelar/csv-dataset-insight-p10",
+    github_url: str = "https://github.com/atharva1145/Datapulse-ai-p10",
     live_url: str = "https://huggingface.co/spaces/atharva-shelar/csv-dataset-insight-p10"
 ) -> str:
     """

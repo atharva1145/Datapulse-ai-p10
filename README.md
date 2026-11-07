@@ -16,7 +16,7 @@ license: mit
 **Student:** Atharva Shelar | **Roll No:** 10 | **Class:** AIA-3 [LY]  
 **Academic Subject:** Generative AI Continuous Assessment (P10)  
 **Institution:** MIT ADT University, Pune  
-**Live Application:** [Hugging Face Space](https://huggingface.co/spaces/atharva-shelar/csv-dataset-insight-p10) | **Repository:** [GitHub](https://github.com/atharva-shelar/csv-dataset-insight-p10)  
+**Live Application:** [Streamlit App](https://datapulse-ai-p10.streamlit.app) | **Repository:** [GitHub](https://github.com/atharva1145/Datapulse-ai-p10)  
 
 ---
 
@@ -120,8 +120,8 @@ The application comes pre-loaded with three public benchmark datasets and suppor
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/atharva-shelar/csv-dataset-insight-p10.git
-cd csv-dataset-insight-p10
+git clone https://github.com/atharva1145/Datapulse-ai-p10.git
+cd Datapulse-ai-p10
 ```
 
 ### 2. Set Up a Virtual Environment

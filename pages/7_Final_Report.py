@@ -49,7 +49,7 @@ with tab_pdf:
     with c_git:
         repo_url = st.text_input(
             "GitHub Repository URL:",
-            value="https://github.com/atharva-shelar/csv-dataset-insight-p10",
+            value="https://github.com/atharva1145/Datapulse-ai-p10",
             help="Public repository URL printed on cover page and code section."
         )
     with c_live:
