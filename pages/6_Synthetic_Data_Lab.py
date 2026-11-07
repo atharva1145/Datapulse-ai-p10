@@ -33,6 +33,7 @@ from modules.image_generator import (
 )
 from modules.data_profiler import profile_dataset
 from modules.ml_recommender import recommend_ml_task
+from modules.ui_components import render_page_header, render_empty_state_warning
 
 st.set_page_config(page_title="Synthetic Data Lab - CSV INSIGHT AI", page_icon="🧬", layout="wide")
 
@@ -42,11 +43,14 @@ if css_path.exists():
     with open(css_path, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.title("🧬 Synthetic Data Lab & Generative AI Studio")
-st.caption("P10 – Module U4 & Unit IV: PyTorch CTGAN Tabular Generation, KS-Fidelity Metrics & Visual Infographic Synthesis")
+render_page_header(
+    page_title="Synthetic Data Lab & Generative AI Studio",
+    module_tag="MODULE U4 & UNIT IV",
+    subtitle="PyTorch CTGAN Tabular Synthesis, Kolmogorov-Smirnov Statistical Validation & Infographic Rendering"
+)
 
 if "df" not in st.session_state or st.session_state["df"] is None:
-    st.warning("⚠️ No dataset loaded. Please load a dataset from the Home page.")
+    render_empty_state_warning()
     st.stop()
 
 df = st.session_state["df"]

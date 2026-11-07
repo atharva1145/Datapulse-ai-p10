@@ -16,6 +16,7 @@ from scipy import stats
 from scipy.spatial.distance import jensenshannon
 import plotly.express as px
 import plotly.graph_objects as go
+from modules.visualization import apply_plotly_enterprise_theme
 
 def evaluate_numerical_columns(
     real_df: pd.DataFrame,
@@ -182,4 +183,4 @@ def plot_real_vs_synthetic_overlay(
             margin=dict(l=20, r=20, t=40, b=20)
         )
 
-    return fig
+    return apply_plotly_enterprise_theme(fig)

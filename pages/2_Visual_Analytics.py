@@ -23,6 +23,7 @@ from modules.visualization import (
     plot_correlation_heatmap,
     plot_scatter_relationship
 )
+from modules.ui_components import render_page_header, render_empty_state_warning
 
 st.set_page_config(page_title="Visual Analytics - CSV INSIGHT AI", page_icon="📈", layout="wide")
 
@@ -32,11 +33,14 @@ if css_path.exists():
     with open(css_path, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.title("📈 Visual Analytics & Distribution Studio")
-st.caption("P10 – Module U1: Column Distributions, Frequency Profiles, and Correlation Heatmaps")
+render_page_header(
+    page_title="Visual Analytics & Distribution Studio",
+    module_tag="MODULE U1",
+    subtitle="Interactive Column Distributions, Outlier Boxplots, and Pearson Correlation Matrix"
+)
 
 if "df" not in st.session_state or st.session_state["df"] is None:
-    st.warning("⚠️ No dataset loaded. Please load a dataset from the Home page.")
+    render_empty_state_warning()
     st.stop()
 
 df = st.session_state["df"]
@@ -62,13 +66,38 @@ with tab_dist:
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
-        st.metric("Detected Type", col_type)
+        st.markdown(f"""
+        <div class="metric-box">
+            <div class="metric-tag">Detected Type</div>
+            <div class="metric-num" style="font-size: 1.5rem;">{col_type}</div>
+            <div class="metric-sub" style="color: #818CF8;">Category Inferred</div>
+        </div>
+        """, unsafe_allow_html=True)
     with c2:
-        st.metric("Data Type (dtype)", col_meta.get("dtype", str(df[selected_col].dtype)))
+        st.markdown(f"""
+        <div class="metric-box">
+            <div class="metric-tag">Data Type</div>
+            <div class="metric-num" style="font-size: 1.5rem;">{col_meta.get('dtype', str(df[selected_col].dtype))}</div>
+            <div class="metric-sub" style="color: #94A3B8;">Pandas dtype</div>
+        </div>
+        """, unsafe_allow_html=True)
     with c3:
-        st.metric("Unique Values", f"{col_meta.get('unique_count', df[selected_col].nunique()):,}")
+        st.markdown(f"""
+        <div class="metric-box">
+            <div class="metric-tag">Unique Values</div>
+            <div class="metric-num" style="font-size: 1.5rem;">{col_meta.get('unique_count', df[selected_col].nunique()):,}</div>
+            <div class="metric-sub" style="color: #38BDF8;">Cardinality</div>
+        </div>
+        """, unsafe_allow_html=True)
     with c4:
-        st.metric("Missing Count", f"{col_meta.get('missing_count', 0)} ({col_meta.get('missing_pct', 0)}%)")
+        miss_color = "#10B981" if col_meta.get('missing_count', 0) == 0 else "#EF4444"
+        st.markdown(f"""
+        <div class="metric-box">
+            <div class="metric-tag">Missing Count</div>
+            <div class="metric-num" style="font-size: 1.5rem;">{col_meta.get('missing_count', 0)}</div>
+            <div class="metric-sub" style="color: {miss_color};">{col_meta.get('missing_pct', 0)}% of column</div>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("---")
 

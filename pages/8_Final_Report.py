@@ -18,6 +18,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from modules.report_generator import compile_pdf_report
+from modules.ui_components import render_page_header
 from config.settings import DOCS_DIR, STUDENT_NAME, ROLL_NUMBER
 
 st.set_page_config(page_title="Final Report - CSV INSIGHT AI", page_icon="📑", layout="wide")
@@ -28,8 +29,11 @@ if css_path.exists():
     with open(css_path, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.title("📑 Academic Deliverables & Final Report")
-st.caption(f"P10 – College Continuous Assessment Mini Project | Student: {STUDENT_NAME} (Roll No: {ROLL_NUMBER})")
+render_page_header(
+    page_title="Academic Deliverables & PDF Report",
+    module_tag="FINAL SUBMISSION",
+    subtitle=f"Official College Continuous Assessment Mini Project (P10) | Student: {STUDENT_NAME} (Roll No: {ROLL_NUMBER})"
+)
 
 tab_pdf, tab_summary, tab_checklist = st.tabs([
     "📥 Download Official PDF Report (10_Atharva_Shelar_P10.pdf)",

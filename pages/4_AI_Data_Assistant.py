@@ -28,6 +28,7 @@ from modules.llm_assistant import (
 )
 from modules.code_validator import validate_python_code
 from modules.safe_executor import execute_code_safely
+from modules.ui_components import render_page_header, render_empty_state_warning
 from config.settings import GEMINI_API_KEY
 
 st.set_page_config(page_title="AI Data Assistant - CSV INSIGHT AI", page_icon="💬", layout="wide")
@@ -38,11 +39,14 @@ if css_path.exists():
     with open(css_path, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.title("💬 AI Data Assistant & LLM Studio")
-st.caption("P10 – Module U2: Natural Language Querying, AST-Safe Code Execution, and Prompt Engineering")
+render_page_header(
+    page_title="AI Data Assistant & LLM Studio",
+    module_tag="MODULE U2 & UNIT II",
+    subtitle="Natural Language Query Synthesis, Strict AST Code Allowlist & Sandboxed Execution"
+)
 
 if "df" not in st.session_state or st.session_state["df"] is None:
-    st.warning("⚠️ No dataset loaded. Please load a dataset from the Home page.")
+    render_empty_state_warning()
     st.stop()
 
 df = st.session_state["df"]

@@ -1,5 +1,5 @@
 """
-CSV INSIGHT AI - Main Application Entrypoint
+CSV INSIGHT AI - Enterprise Application Entrypoint
 Student: Atharva Shelar | Roll No: 10
 Course: Generative AI | Academic Problem: P10
 """
@@ -25,10 +25,11 @@ from config.settings import (
     MAX_UPLOAD_SIZE_MB
 )
 from modules.data_loader import load_csv
+from modules.ui_components import render_page_header
 
 # Configure page layout and metadata
 st.set_page_config(
-    page_title=f"{APP_NAME} - P10",
+    page_title=f"{APP_NAME} - Enterprise AI Platform",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -68,41 +69,41 @@ if st.session_state["df"] is None:
             st.session_state["target_column"] = "species"
 
 # ==============================================================================
-# SIDEBAR: Dataset Upload & Information Panel
+# SIDEBAR: Dataset Upload & Information Panel (Enterprise Dark)
 # ==============================================================================
 with st.sidebar:
     st.markdown(f"""
-    <div class="sidebar-brand-box">
-        <div style="font-size: 1.25rem; font-weight: 800; color: #1E1B4B; display: flex; align-items: center; gap: 8px;">
-            <span>📊</span> {APP_NAME}
+    <div class="sidebar-brand-card">
+        <div style="font-size: 1.1rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em;">
+            {APP_NAME}
         </div>
-        <div style="font-size: 0.78rem; color: #64748B; font-weight: 600; margin-top: 2px;">
-            P10: CSV Dataset Insight &amp; Task Recommender
+        <div style="font-size: 0.75rem; color: #94A3B8; font-weight: 600; margin-top: 2px;">
+            Problem P10 | Continuous Assessment
         </div>
-        <div style="font-size: 0.75rem; color: #4F46E5; font-weight: 700; margin-top: 6px;">
-            Student: {STUDENT_NAME} (Roll: {ROLL_NUMBER})
+        <div style="font-size: 0.72rem; color: #38BDF8; font-weight: 700; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em;">
+            Student: {STUDENT_NAME} [{ROLL_NUMBER}]
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("### 📁 Dataset Selector")
+    st.markdown("<div style='font-size: 0.8rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;'>Dataset Ingestion</div>", unsafe_allow_html=True)
     data_source = st.radio(
-        "Choose Data Source:",
-        ["Sample Benchmark Dataset", "Upload Custom CSV"],
+        "Ingestion Source:",
+        ["Public Benchmark Dataset", "Custom CSV Upload"],
         index=0,
-        help="Select one of the 3 verified benchmark datasets or upload your own file."
+        label_visibility="collapsed"
     )
 
-    if data_source == "Sample Benchmark Dataset":
+    if data_source == "Public Benchmark Dataset":
         selected_sample = st.selectbox(
-            "Select Benchmark Dataset:",
+            "Select Benchmark:",
             list(SAMPLE_DATASETS.keys()),
             index=0
         )
         sample_info = SAMPLE_DATASETS[selected_sample]
-        st.caption(f"**Task:** {sample_info['task_type']}")
+        st.markdown(f"<div style='font-size: 0.74rem; color: #94A3B8; margin-top: -8px; margin-bottom: 12px;'>Task: <span style='color: #38BDF8; font-weight: 600;'>{sample_info['task_type']}</span></div>", unsafe_allow_html=True)
         
-        if st.button("⚡ Load Selected Dataset", use_container_width=True, type="primary"):
+        if st.button("Load Benchmark Dataset", use_container_width=True, type="primary"):
             sample_path = SAMPLE_DATA_DIR / sample_info["filename"]
             df, meta, err = load_csv(sample_path)
             if err:
@@ -112,7 +113,6 @@ with st.sidebar:
                 st.session_state["metadata"] = meta
                 st.session_state["dataset_name"] = selected_sample
                 st.session_state["target_column"] = meta["columns"][-1]
-                st.success(f"Loaded {selected_sample}!")
                 st.rerun()
 
     else:
@@ -128,7 +128,7 @@ with st.sidebar:
             encoding = st.selectbox("Encoding:", ["utf-8", "latin1", "cp1252"], index=0)
 
         if uploaded_file is not None:
-            if st.button("⚡ Process Uploaded CSV", use_container_width=True, type="primary"):
+            if st.button("Process CSV File", use_container_width=True, type="primary"):
                 df, meta, err = load_csv(
                     uploaded_file,
                     delimiter=None if delimiter == "auto" else delimiter,
@@ -142,113 +142,120 @@ with st.sidebar:
                     st.session_state["metadata"] = meta
                     st.session_state["dataset_name"] = meta["filename"]
                     st.session_state["target_column"] = meta["columns"][-1]
-                    st.success(f"Loaded {meta['filename']}!")
                     st.rerun()
 
-    # Active Dataset Status Pill in Sidebar
+    # Active Dataset Status Box
     if st.session_state["df"] is not None:
         st.markdown(f"""
-        <div class="sidebar-status-pill">
-            <div class="pulse-dot"></div>
-            <div>Active: <b>{st.session_state['dataset_name']}</b><br/>
-            <span style="font-size: 0.74rem; color: #64748B;">{len(st.session_state['df']):,} rows × {len(st.session_state['df'].columns)} cols</span>
+        <div class="sidebar-status-box">
+            <div style="font-weight: 700; color: #F8FAFC; display: flex; align-items: center; justify-content: space-between;">
+                <span>ACTIVE DATASET</span>
+                <span style="display: flex; align-items: center; gap: 4px; color: #10B981; font-size: 0.7rem;">
+                    <span class="status-dot-active"></span> READY
+                </span>
+            </div>
+            <div style="font-size: 0.85rem; color: #38BDF8; font-weight: 600; margin-top: 4px;">{st.session_state['dataset_name']}</div>
+            <div style="font-size: 0.75rem; color: #94A3B8; margin-top: 2px;">
+                {len(st.session_state['df']):,} rows • {len(st.session_state['df'].columns)} features
             </div>
         </div>
         """, unsafe_allow_html=True)
 
 # ==============================================================================
-# MAIN PAGE: HERO BANNER & NAVIGATION CARDS
+# MAIN PAGE: ENTERPRISE TOP APP BAR & HERO SECTION
 # ==============================================================================
+render_page_header(
+    page_title="Platform Ingestion & Overview",
+    module_tag="CORE ARCHITECTURE",
+    subtitle="Continuous Assessment P10: Enterprise CSV profiling, LLM Pandas Assistant, Sentence-BERT semantic column clustering, Multimodal Vision, and PyTorch CTGAN tabular generation."
+)
+
 st.markdown(f"""
-<div class="hero-container">
-    <div class="hero-title">{APP_NAME}</div>
-    <div class="hero-subtitle">{APP_SUBTITLE}</div>
-    <div class="hero-badge-pill">
-        <span>🎓 Continuous Assessment Mini Project (P10)</span> • 
-        <span>Student: {STUDENT_NAME} (Roll No: {ROLL_NUMBER})</span> • 
-        <span>{COURSE_NAME}</span>
+<div class="hero-executive-card">
+    <div class="hero-executive-title">Dataset Intelligence &amp; Autonomous ML Recommender</div>
+    <div class="hero-executive-subtitle">
+        Enterprise-grade tabular profiling engine incorporating empirical statistical health scoring, 
+        natural-language Pandas query synthesis with strict AST validation sandboxes, Sentence-BERT semantic 
+        embeddings, multimodal vision chart reasoning, and PyTorch CTGAN tabular synthesis.
+    </div>
+    <div class="hero-stats-row">
+        <div class="hero-stat-item">Academic Subject: <strong>{COURSE_NAME}</strong></div>
+        <div class="hero-stat-item">Continuous Assessment: <strong>P10 Practical</strong></div>
+        <div class="hero-stat-item">Deployment Ready: <strong>Hugging Face &amp; Streamlit Cloud</strong></div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# Feature Navigation Grid
-st.markdown("### 🧭 Architecture & Capabilities")
+# Enterprise Feature Navigation Grid
+st.markdown("<div style='font-size: 1.15rem; font-weight: 700; color: #F8FAFC; margin-bottom: 14px;'>Core Architectural Studios</div>", unsafe_allow_html=True)
 
-card1, card2 = st.columns(2)
-with card1:
+c1, c2 = st.columns(2)
+with c1:
     st.markdown("""
-    <div class="feature-card">
-        <div class="feature-card-header">
-            <div class="feature-icon-box">📈</div>
-            <div>
-                <div class="feature-title">Module U1: Visual Analytics &amp; ML Recommender</div>
-            </div>
+    <div class="module-card">
+        <div class="module-header">
+            <span class="module-tag-badge">MODULE U1</span>
+            <span class="module-title">Visual Analytics &amp; ML Lifecycle</span>
         </div>
-        <div class="feature-description">
-            Interactive Plotly column distributions, box plots, correlation heatmaps, 
-            deterministic heuristic recommendations for Supervised/Unsupervised algorithms, 
-            and a tailored 10-stage ML lifecycle roadmap.
+        <div class="module-desc">
+            Calculates distribution moments, KDE curves, outlier quartiles, and Pearson correlation matrices. 
+            Deterministic rule heuristics determine optimal learning paradigms (Supervised Classification, 
+            Regression, or Unsupervised Clustering) and generate a 10-stage actionable ML lifecycle roadmap.
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-with card2:
+with c2:
     st.markdown("""
-    <div class="feature-card">
-        <div class="feature-card-header">
-            <div class="feature-icon-box">💬</div>
-            <div>
-                <div class="feature-title">Module U2: LLM + Pandas Data Assistant</div>
-            </div>
+    <div class="module-card">
+        <div class="module-header">
+            <span class="module-tag-badge">MODULE U2</span>
+            <span class="module-title">LLM Data Assistant &amp; AST Sandbox</span>
         </div>
-        <div class="feature-description">
-            Natural language dataset querying powered by Gemini 2.5 Flash. 
-            Synthesizes Pandas code protected by an <b>AST security allowlist</b> that blocks 
-            malicious imports, executes in a sandboxed namespace, and explains findings in plain English.
+        <div class="module-desc">
+            Natural language conversational dataset queries powered by Google Gemini 2.5 Flash. 
+            All synthesized Pandas code is checked through an <b>Abstract Syntax Tree (AST) security allowlist</b>, 
+            blocking unauthorized imports or disk writes before execution in a restricted namespace.
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown("<div style='height: 14px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
 
-card3, card4 = st.columns(2)
-with card3:
+c3, c4 = st.columns(2)
+with c3:
     st.markdown("""
-    <div class="feature-card">
-        <div class="feature-card-header">
-            <div class="feature-icon-box">🧠</div>
-            <div>
-                <div class="feature-title">Module U3: Column Intelligence &amp; Vision LLM</div>
-            </div>
+    <div class="module-card">
+        <div class="module-header">
+            <span class="module-tag-badge">MODULE U3</span>
+            <span class="module-title">Column Intelligence &amp; Multimodal Vision</span>
         </div>
-        <div class="feature-description">
-            Sentence-BERT (<code>all-MiniLM-L6-v2</code>) semantic 384-d vector embeddings 
-            with interactive cosine similarity clustering. Streamlined multimodal Gemini Vision 
-            pipeline that visually reads and explains distribution charts.
+        <div class="module-desc">
+            Sentence-BERT (<code>all-MiniLM-L6-v2</code>) encodes rich column metadata into 384-dimensional dense 
+            vectors to cluster semantically related attributes. The multimodal vision pipeline transmits 
+            rendered chart buffers to Gemini Vision to detect skewness, modality peaks, and anomalies.
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-with card4:
+with c4:
     st.markdown("""
-    <div class="feature-card">
-        <div class="feature-card-header">
-            <div class="feature-icon-box">🧬</div>
-            <div>
-                <div class="feature-title">Module U4 &amp; U5: Synthetic CTGAN &amp; Responsible AI</div>
-            </div>
+    <div class="module-card">
+        <div class="module-header">
+            <span class="module-tag-badge">MODULE U4 &amp; U5</span>
+            <span class="module-title">CTGAN Synthetic Data &amp; Responsible AI</span>
         </div>
-        <div class="feature-description">
-            PyTorch-compatible CTGAN for tabular synthesis evaluated with Kolmogorov-Smirnov 
-            two-sample tests, regex-based PII attribute detection, target class imbalance 
-            audits, and verifiable hallucination benchmarks.
+        <div class="module-desc">
+            PyTorch-powered Conditional Tabular GAN (CTGAN) synthesizes privacy-preserving rows with 
+            Kolmogorov-Smirnov two-sample validation. Responsible AI scanners flag sensitive PII columns 
+            and evaluate target class imbalance with Accuracy Paradox guidance.
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-# Active Dataset Preview Table
+# Active Dataset Overview Table
 if st.session_state["df"] is not None:
-    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
-    st.markdown(f"### 📋 Active Dataset Preview: `{st.session_state['dataset_name']}`")
+    st.markdown("<div style='height: 22px;'></div>", unsafe_allow_html=True)
+    st.markdown(f"### 📋 Active Dataset Inspection: `{st.session_state['dataset_name']}`")
     st.dataframe(st.session_state["df"].head(10), use_container_width=True)
-    st.caption(f"Displaying first 10 rows of {len(st.session_state['df']):,} total records. Use the sidebar to navigate to all analytical studios.")
+    st.caption(f"Displaying top 10 rows of {len(st.session_state['df']):,} records. Navigate via the sidebar to access dedicated analytics studios.")

@@ -1,322 +1,603 @@
 /* ==============================================================================
-   CSV INSIGHT AI - Enterprise Modern SaaS Stylesheet
-   Student: Atharva Shelar (Roll No: 10) | P10
+   CSV INSIGHT AI - Elite Enterprise Analytics Platform Stylesheet
+   Design Philosophy: Linear / Datadog / Snowflake Dark Aesthetic
+   Academic Subject: Generative AI (P10) | Student: Atharva Shelar (Roll No: 10)
    ============================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-    --primary: #4F46E5;
-    --primary-light: #EEF2FF;
-    --primary-hover: #4338CA;
-    --accent: #06B6D4;
-    --success: #10B981;
-    --success-light: #ECFDF5;
-    --warning: #F59E0B;
-    --warning-light: #FFFBEB;
-    --danger: #EF4444;
-    --danger-light: #FEF2F2;
-    --bg-card: #FFFFFF;
-    --text-main: #0F172A;
-    --text-muted: #64748B;
-    --border-color: #E2E8F0;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    --bg-base: #090D16;
+    --bg-surface: #0F172A;
+    --bg-surface-elevated: #1E293B;
+    --bg-surface-hover: #334155;
+    --border-subtle: #1E293B;
+    --border-medium: #334155;
+    --border-accent: #6366F1;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-tertiary: #64748B;
+    --accent-indigo: #6366F1;
+    --accent-indigo-gradient: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+    --accent-sky: #38BDF8;
+    --accent-emerald: #10B981;
+    --accent-amber: #F59E0B;
+    --accent-rose: #EF4444;
 }
 
-/* Base Typography */
+/* ==============================================================================
+   GLOBAL STREAMLIT OVERRIDES
+   ============================================================================== */
 html, body, [class*="css"] {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    color: var(--text-primary) !important;
+    background-color: var(--bg-base) !important;
+    letter-spacing: -0.01em;
 }
 
-code, pre, .terminal-output {
+code, pre, .terminal-window, .metric-num {
     font-family: 'JetBrains Mono', monospace !important;
 }
 
-/* Hero Header Banner */
-.hero-container {
-    background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
-    border-radius: 16px;
-    padding: 32px 36px;
-    color: white;
-    margin-bottom: 28px;
-    box-shadow: 0 20px 25px -5px rgba(30, 27, 75, 0.25), 0 10px 10px -5px rgba(30, 27, 75, 0.1);
+/* Hide default Streamlit top decoration line */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+}
+
+/* Hide default streamlit footer */
+footer {
+    display: none !important;
+}
+
+/* Ensure main block container has proper breathing room */
+.main .block-container {
+    padding-top: 1.5rem !important;
+    padding-bottom: 3rem !important;
+    max-width: 96% !important;
+}
+
+/* ==============================================================================
+   ENTERPRISE TOP APP BAR (DATADOG / LINEAR STYLE)
+   ============================================================================== */
+.enterprise-app-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #0F172A;
+    border: 1px solid #1E293B;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-badge {
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    color: #818CF8;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.brand-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #F8FAFC;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.brand-breadcrumb-separator {
+    color: #475569;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.brand-breadcrumb-page {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #94A3B8;
+}
+
+.meta-chips-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.meta-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #1E293B;
+    border: 1px solid #334155;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #CBD5E1;
+}
+
+.meta-chip-dataset.active {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.3);
+    color: #38BDF8;
+}
+
+.meta-chip-dataset.warning {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: #FBBF24;
+}
+
+.student-chip {
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.status-dot-active {
+    width: 7px;
+    height: 7px;
+    background: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10B981;
+}
+
+/* Page Subheader Container */
+.page-subheader-container {
+    margin-bottom: 22px;
+}
+
+.page-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.page-main-heading {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: #F8FAFC;
+    letter-spacing: -0.03em;
+    margin: 0;
+}
+
+.module-pill-badge {
+    background: #1E293B;
+    border: 1px solid #334155;
+    color: #A5B4FC;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.page-main-subtext {
+    font-size: 0.88rem;
+    color: #94A3B8;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ==============================================================================
+   METRIC BOXES (HIGH-CONTRAST SLATE WITH GLOW ACCENT)
+   ============================================================================== */
+.metric-box {
+    background: #0F172A;
+    border: 1px solid #1E293B;
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.hero-container::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(255,255,255,0) 70%);
-    border-radius: 50%;
+.metric-box:hover {
+    border-color: #6366F1;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -2px rgba(99, 102, 241, 0.15);
 }
 
-.hero-title {
-    font-size: 2.2rem;
+.metric-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94A3B8;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.metric-num {
+    font-size: 1.9rem;
     font-weight: 800;
-    letter-spacing: -0.025em;
-    margin: 0;
-    background: linear-gradient(to right, #FFFFFF, #E0E7FF);
+    color: #F8FAFC;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.metric-sub {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #10B981;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ==============================================================================
+   HERO EXECUTIVE CARD (RADIAL GLOW)
+   ============================================================================== */
+.hero-executive-card {
+    background: radial-gradient(100% 100% at 50% 0%, #1E1B4B 0%, #0F172A 100%);
+    border: 1px solid #2E285D;
+    border-radius: 16px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-executive-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #F8FAFC;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+}
+
+.hero-executive-subtitle {
+    font-size: 0.98rem;
+    color: #94A3B8;
+    max-width: 820px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+}
+
+.hero-stats-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-stat-item {
+    font-size: 0.82rem;
+    color: #CBD5E1;
+}
+
+.hero-stat-item strong {
+    color: #38BDF8;
+}
+
+/* ==============================================================================
+   QUALITY HEALTH SCORE GAUGE CARD
+   ============================================================================== */
+.health-score-container {
+    background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
+    border: 1px solid #3730A3;
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 25px -5px rgba(30, 27, 75, 0.4);
+}
+
+.health-score-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #A5B4FC;
+    margin-bottom: 8px;
+}
+
+.health-score-value {
+    font-size: 3.8rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    background: linear-gradient(180deg, #FFFFFF 0%, #A5B4FC 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.hero-subtitle {
-    font-size: 1.05rem;
-    color: #C7D2FE;
-    margin-top: 6px;
-    font-weight: 400;
-}
-
-.hero-badge-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+.health-badge-status {
+    display: inline-block;
     padding: 4px 14px;
     border-radius: 9999px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #F8FAFC;
-    margin-top: 14px;
-    backdrop-filter: blur(8px);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 12px;
 }
 
-/* Feature Navigation Cards */
-.feature-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 14px;
-    padding: 22px;
+/* ==============================================================================
+   MODULE CARDS (GRID DISPLAY)
+   ============================================================================== */
+.module-card {
+    background: #0F172A;
+    border: 1px solid #1E293B;
+    border-radius: 12px;
+    padding: 24px;
     height: 100%;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.25s ease-in-out;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
     position: relative;
-    overflow: hidden;
 }
 
-.feature-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: #C7D2FE;
+.module-card:hover {
+    border-color: #6366F1;
+    box-shadow: 0 12px 20px -3px rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
 }
 
-.feature-card-header {
+.module-header {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 12px;
 }
 
-.feature-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    background: #EEF2FF;
-    color: #4F46E5;
+.module-tag-badge {
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    color: #A5B4FC;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
 }
 
-.feature-title {
+.module-title {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #0F172A;
+    color: #F8FAFC;
     margin: 0;
 }
 
-.feature-description {
-    font-size: 0.86rem;
-    color: #64748B;
-    line-height: 1.5;
-}
-
-/* Metric KPI Cards */
-.kpi-metric-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 16px 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    border-left: 4px solid #4F46E5;
-    transition: transform 0.2s ease;
-}
-
-.kpi-metric-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.kpi-label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #64748B;
-    margin-bottom: 4px;
-}
-
-.kpi-value {
-    font-size: 1.85rem;
-    font-weight: 800;
-    color: #0F172A;
-    line-height: 1.2;
-}
-
-.kpi-delta {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #10B981;
-    margin-top: 4px;
-}
-
-/* Quality Score Gauge Card */
-.quality-card {
-    background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 100%);
-    border: 1px solid #C7D2FE;
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-}
-
-.quality-score-number {
-    font-size: 3.4rem;
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    background: linear-gradient(135deg, #4338CA 0%, #6366F1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.quality-score-badge {
-    display: inline-block;
-    padding: 5px 14px;
-    border-radius: 9999px;
-    font-weight: 700;
+.module-desc {
     font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 8px;
+    color: #94A3B8;
+    line-height: 1.55;
 }
 
-.badge-excellent {
-    background-color: #D1FAE5;
-    color: #065F46;
-    border: 1px solid #A7F3D0;
-}
-
-.badge-good {
-    background-color: #DBEAFE;
-    color: #1E40AF;
-    border: 1px solid #BFDBFE;
-}
-
-.badge-fair {
-    background-color: #FEF3C7;
-    color: #92400E;
-    border: 1px solid #FDE68A;
-}
-
-.badge-poor {
-    background-color: #FEE2E2;
-    color: #991B1B;
-    border: 1px solid #FECACA;
-}
-
-/* Sidebar Custom Styling */
-section[data-testid="stSidebar"] {
-    background-color: #F8FAFC;
-    border-right: 1px solid #E2E8F0;
-}
-
-.sidebar-brand-box {
-    padding: 12px 14px;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
+/* ==============================================================================
+   TERMINAL WINDOW (VS CODE / MACOS DARK CONSOLE)
+   ============================================================================== */
+.terminal-window {
+    background: #06090F;
+    border: 1px solid #1E293B;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 12px;
     margin-bottom: 16px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
 
-.sidebar-status-pill {
+.terminal-header {
+    background: #0F172A;
+    border-bottom: 1px solid #1E293B;
+    padding: 8px 14px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background: #EEF2FF;
-    border-left: 3px solid #4F46E5;
-    border-radius: 6px;
-    font-size: 0.82rem;
-    color: #3730A3;
-    font-weight: 600;
-    margin-top: 10px;
+    justify-content: space-between;
 }
 
-.pulse-dot {
-    width: 8px;
-    height: 8px;
-    background: #10B981;
+.terminal-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.t-dot {
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-    animation: pulse 1.6s infinite;
+}
+.dot-red { background: #EF4444; }
+.dot-yellow { background: #F59E0B; }
+.dot-green { background: #10B981; }
+
+.terminal-title {
+    font-size: 0.72rem;
+    color: #94A3B8;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-family: 'JetBrains Mono', monospace;
 }
 
-@keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+.terminal-body {
+    padding: 14px 18px;
+    color: #E2E8F0;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    overflow-x: auto;
 }
 
-/* Modern Tab Styling */
+/* ==============================================================================
+   EMPTY STATE CONTAINER
+   ============================================================================== */
+.empty-state-card {
+    background: #0F172A;
+    border: 1px dashed #334155;
+    border-radius: 14px;
+    padding: 48px 24px;
+    text-align: center;
+    margin: 24px 0;
+}
+
+/* ==============================================================================
+   STREAMLIT FORM CONTROLS & WIDGET POLISH
+   ============================================================================== */
+/* Buttons */
+button[kind="primary"] {
+    background: var(--accent-indigo-gradient) !important;
+    border: 1px solid #6366F1 !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35) !important;
+    transition: all 0.2s ease !important;
+}
+
+button[kind="primary"]:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45) !important;
+    border-color: #818CF8 !important;
+}
+
+button[kind="secondary"] {
+    background: #1E293B !important;
+    border: 1px solid #334155 !important;
+    color: #F8FAFC !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    transition: all 0.2s ease !important;
+}
+
+button[kind="secondary"]:hover {
+    background: #334155 !important;
+    border-color: #475569 !important;
+}
+
+/* Inputs, Selectboxes & Textareas */
+div[data-baseweb="select"] > div,
+div[data-baseweb="input"] > div,
+div[data-baseweb="textarea"] > div {
+    background-color: #0F172A !important;
+    border: 1px solid #1E293B !important;
+    border-radius: 8px !important;
+    color: #F8FAFC !important;
+}
+
+div[data-baseweb="select"] > div:focus-within,
+div[data-baseweb="input"] > div:focus-within,
+div[data-baseweb="textarea"] > div:focus-within {
+    border-color: #6366F1 !important;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25) !important;
+}
+
+/* Streamlit Tabs Polish (Pill Bar) */
 .stTabs [data-baseweb="tab-list"] {
-    gap: 8px;
-    background-color: #F1F5F9;
-    padding: 6px;
-    border-radius: 10px;
+    background-color: #0F172A !important;
+    border: 1px solid #1E293B !important;
+    padding: 4px !important;
+    border-radius: 10px !important;
+    gap: 4px !important;
+    margin-bottom: 20px !important;
 }
 
 .stTabs [data-baseweb="tab"] {
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-weight: 600;
-    color: #64748B;
-    background-color: transparent;
+    color: #94A3B8 !important;
+    font-weight: 600 !important;
+    font-size: 0.84rem !important;
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
     border: none !important;
+    background: transparent !important;
+    transition: all 0.2s ease !important;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    color: #F8FAFC !important;
+    background: rgba(255, 255, 255, 0.04) !important;
 }
 
 .stTabs [aria-selected="true"] {
-    background-color: #FFFFFF !important;
-    color: #4F46E5 !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background-color: #1E293B !important;
+    color: #FFFFFF !important;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Primary Button Styling */
-div.stButton > button[kind="primary"] {
-    background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%);
-    border: none;
+/* Streamlit Expanders */
+div[data-testid="stExpander"] {
+    background-color: #0F172A !important;
+    border: 1px solid #1E293B !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    margin-bottom: 12px !important;
+}
+
+div[data-testid="stExpander"] summary {
+    font-weight: 600 !important;
+    color: #F8FAFC !important;
+    padding: 10px 16px !important;
+}
+
+/* Streamlit Alerts */
+div[data-testid="stAlert"] {
+    background-color: #0F172A !important;
+    border: 1px solid #1E293B !important;
+    border-radius: 10px !important;
+    padding: 12px 18px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Streamlit Dataframes */
+div[data-testid="stDataFrame"] {
+    border: 1px solid #1E293B !important;
+    border-radius: 10px !important;
+    background: #0F172A !important;
+    overflow: hidden !important;
+}
+
+/* Sidebar Ultra-Clean Aesthetics */
+section[data-testid="stSidebar"] {
+    background-color: #0B0F19 !important;
+    border-right: 1px solid #1E293B !important;
+}
+
+section[data-testid="stSidebar"] * {
+    color: #E2E8F0 !important;
+}
+
+section[data-testid="stSidebar"] .stSelectbox label,
+section[data-testid="stSidebar"] .stRadio label {
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    color: #94A3B8 !important;
+}
+
+.sidebar-brand-card {
+    background: #111827;
+    border: 1px solid #1E293B;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+}
+
+.sidebar-status-box {
+    background: #111827;
+    border: 1px solid #1E293B;
+    border-left: 3px solid #10B981;
     border-radius: 8px;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    padding: 10px 20px;
-    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.25);
-    transition: all 0.2s ease;
-}
-
-div.stButton > button[kind="primary"]:hover {
-    background: linear-gradient(135deg, #4338CA 0%, #3730A3 100%);
-    box-shadow: 0 6px 10px -1px rgba(79, 70, 229, 0.35);
-    transform: translateY(-1px);
+    padding: 10px 14px;
+    margin-top: 14px;
+    font-size: 0.8rem;
 }

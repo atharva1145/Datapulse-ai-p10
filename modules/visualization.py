@@ -5,10 +5,11 @@ Subject: Generative AI (P10)
 
 Generates interactive Plotly figures and static Matplotlib charts
 for distributions, correlations, class probabilities, and Gemini Vision payloads.
+Styled with Enterprise Dark SaaS aesthetics (Linear / Datadog).
 """
 
 import io
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Any
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -17,7 +18,28 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Set clean styling for static charts
-sns.set_theme(style="whitegrid", palette="muted")
+sns.set_theme(style="darkgrid", palette="muted")
+
+
+def apply_plotly_enterprise_theme(fig: go.Figure) -> go.Figure:
+    """Applies high-end enterprise dark theme to any Plotly figure."""
+    fig.update_layout(
+        template="plotly_dark",
+        paper_bgcolor="rgba(15, 23, 42, 0.6)",
+        plot_bgcolor="rgba(15, 23, 42, 0.4)",
+        font=dict(family="Inter, -apple-system, sans-serif", color="#CBD5E1", size=12),
+        title_font=dict(family="Inter, -apple-system, sans-serif", color="#F8FAFC", size=14),
+        margin=dict(l=24, r=24, t=46, b=24),
+        hoverlabel=dict(
+            bgcolor="#1E293B",
+            font_size=12,
+            font_family="Inter, sans-serif"
+        )
+    )
+    fig.update_xaxes(gridcolor="#1E293B", zerolinecolor="#334155")
+    fig.update_yaxes(gridcolor="#1E293B", zerolinecolor="#334155")
+    return fig
+
 
 def plot_missing_values(missing_dict: Dict[str, Dict[str, Any]]) -> go.Figure:
     """Creates a horizontal bar chart of missing value percentages per column."""
@@ -37,10 +59,10 @@ def plot_missing_values(missing_dict: Dict[str, Dict[str, Any]]) -> go.Figure:
             text="✨ No Missing Values Detected (100% Complete Data)",
             xref="paper", yref="paper",
             x=0.5, y=0.5, showarrow=False,
-            font=dict(size=16, color="#059669")
+            font=dict(size=15, color="#10B981")
         )
-        fig.update_layout(height=200, margin=dict(l=20, r=20, t=30, b=20))
-        return fig
+        fig.update_layout(height=180, margin=dict(l=20, r=20, t=30, b=20))
+        return apply_plotly_enterprise_theme(fig)
 
     # Sort descending
     sorted_indices = np.argsort(pcts)
@@ -60,10 +82,10 @@ def plot_missing_values(missing_dict: Dict[str, Dict[str, Any]]) -> go.Figure:
         title="Missing Values by Column (%)",
         xaxis_title="Missing Percentage (%)",
         yaxis_title="Column",
-        height=max(250, len(cols) * 35),
-        margin=dict(l=20, r=20, t=40, b=20)
+        height=max(260, len(cols) * 38)
     )
-    return fig
+    return apply_plotly_enterprise_theme(fig)
+
 
 def plot_numerical_distribution(df: pd.DataFrame, col: str) -> go.Figure:
     """Plots histogram with marginal box plot for a numerical column."""
@@ -73,15 +95,15 @@ def plot_numerical_distribution(df: pd.DataFrame, col: str) -> go.Figure:
         marginal="box",
         nbins=35,
         title=f"Distribution & Outlier Analysis: {col}",
-        color_discrete_sequence=["#4F46E5"]
+        color_discrete_sequence=["#6366F1"]
     )
     fig.update_layout(
         xaxis_title=col,
         yaxis_title="Record Count",
-        margin=dict(l=20, r=20, t=40, b=20),
         bargap=0.05
     )
-    return fig
+    return apply_plotly_enterprise_theme(fig)
+
 
 def plot_categorical_distribution(df: pd.DataFrame, col: str, max_categories: int = 15) -> go.Figure:
     """Plots frequency bar chart for a categorical column."""
@@ -97,14 +119,14 @@ def plot_categorical_distribution(df: pd.DataFrame, col: str, max_categories: in
         text=counts["Percentage"].apply(lambda p: f"{p}%"),
         title=f"Category Frequencies: {col} (Top {len(counts)})",
         color="Count",
-        color_continuous_scale="Blues"
+        color_continuous_scale="Purples"
     )
     fig.update_layout(
         xaxis_title=col,
-        yaxis_title="Frequency",
-        margin=dict(l=20, r=20, t=40, b=20)
+        yaxis_title="Frequency"
     )
-    return fig
+    return apply_plotly_enterprise_theme(fig)
+
 
 def plot_correlation_heatmap(df: pd.DataFrame, numerical_cols: List[str]) -> Optional[go.Figure]:
     """Generates an interactive correlation matrix heatmap for numerical columns."""
@@ -115,16 +137,16 @@ def plot_correlation_heatmap(df: pd.DataFrame, numerical_cols: List[str]) -> Opt
         corr,
         text_auto=True,
         aspect="auto",
-        color_continuous_scale="RdBu_r",
+        color_continuous_scale="Viridis",
         zmin=-1,
         zmax=1,
         title="Feature Correlation Matrix (Pearson)"
     )
     fig.update_layout(
-        height=max(400, len(numerical_cols) * 40),
-        margin=dict(l=20, r=20, t=40, b=20)
+        height=max(420, len(numerical_cols) * 44)
     )
-    return fig
+    return apply_plotly_enterprise_theme(fig)
+
 
 def plot_scatter_relationship(
     df: pd.DataFrame,
@@ -140,10 +162,11 @@ def plot_scatter_relationship(
         color=color_col if color_col in df.columns else None,
         title=f"Bivariate Analysis: {x_col} vs {y_col}" + (f" (Grouped by {color_col})" if color_col else ""),
         opacity=0.8,
-        trendline="ols" if not color_col else None
+        trendline="ols" if not color_col else None,
+        color_discrete_sequence=["#6366F1", "#38BDF8", "#10B981", "#F59E0B"]
     )
-    fig.update_layout(margin=dict(l=20, r=20, t=40, b=20))
-    return fig
+    return apply_plotly_enterprise_theme(fig)
+
 
 def plot_class_probability_distribution(df: pd.DataFrame, target_col: str) -> go.Figure:
     """
@@ -173,10 +196,10 @@ def plot_class_probability_distribution(df: pd.DataFrame, target_col: str) -> go
     fig.update_layout(
         yaxis_title="Empirical Prior Probability P(C_k)",
         xaxis_title=f"Target Class ({target_col})",
-        yaxis_range=[0, min(1.0, max(probs.values) * 1.25)],
-        margin=dict(l=20, r=20, t=40, b=20)
+        yaxis_range=[0, min(1.0, max(probs.values) * 1.25)]
     )
-    return fig
+    return apply_plotly_enterprise_theme(fig)
+
 
 def render_matplotlib_to_bytes(fig: plt.Figure) -> bytes:
     """
@@ -184,22 +207,31 @@ def render_matplotlib_to_bytes(fig: plt.Figure) -> bytes:
     suitable for sending to the Gemini Multimodal Vision API.
     """
     buf = io.BytesIO()
-    fig.savefig(buf, format="png", dpi=130, bbox_inches="tight")
+    fig.savefig(buf, format="png", dpi=130, bbox_inches="tight", facecolor="#0F172A")
     buf.seek(0)
     image_bytes = buf.getvalue()
     buf.close()
     plt.close(fig)
     return image_bytes
 
+
 def create_static_distribution_plot(df: pd.DataFrame, col: str) -> bytes:
     """Generates a static Matplotlib figure for a column and returns PNG bytes."""
-    fig, ax = plt.subplots(figsize=(7, 4))
+    plt.style.use('dark_background')
+    fig, ax = plt.subplots(figsize=(7, 4), facecolor="#0F172A")
+    ax.set_facecolor("#1E293B")
+    
     if pd.api.types.is_numeric_dtype(df[col]):
-        sns.histplot(df[col].dropna(), kde=True, ax=ax, color="#4F46E5")
-        ax.set_title(f"Distribution of {col}", fontsize=13, weight="bold")
+        sns.histplot(df[col].dropna(), kde=True, ax=ax, color="#818CF8", edgecolor="#334155")
+        ax.set_title(f"Distribution of {col}", fontsize=13, weight="bold", color="#F8FAFC")
     else:
         top_cats = df[col].astype(str).value_counts().head(8)
-        sns.barplot(x=top_cats.values, y=top_cats.index, ax=ax, palette="Blues_d")
-        ax.set_title(f"Category Counts: {col}", fontsize=13, weight="bold")
-    ax.set_xlabel(col)
+        sns.barplot(x=top_cats.values, y=top_cats.index, ax=ax, palette="mako")
+        ax.set_title(f"Category Counts: {col}", fontsize=13, weight="bold", color="#F8FAFC")
+        
+    ax.set_xlabel(col, color="#CBD5E1")
+    ax.tick_params(colors="#94A3B8")
+    for spine in ax.spines.values():
+        spine.set_color("#334155")
+        
     return render_matplotlib_to_bytes(fig)

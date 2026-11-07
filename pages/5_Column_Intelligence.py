@@ -26,6 +26,7 @@ from modules.embeddings import (
 )
 from modules.visualization import create_static_distribution_plot
 from modules.vision_analyzer import interpret_chart_with_vision
+from modules.ui_components import render_page_header, render_empty_state_warning
 
 st.set_page_config(page_title="Column Intelligence - CSV INSIGHT AI", page_icon="🧠", layout="wide")
 
@@ -35,11 +36,14 @@ if css_path.exists():
     with open(css_path, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.title("🧠 Column Intelligence & Multimodal Vision")
-st.caption("P10 – Module U3: Sentence-BERT Semantic Embeddings, Column Clustering & Gemini Vision Chart Analysis")
+render_page_header(
+    page_title="Column Intelligence & Multimodal Vision",
+    module_tag="MODULE U3 & UNIT III",
+    subtitle="Sentence-BERT 384-d Column Semantic Clustering & Gemini Multimodal Vision Chart Reasoning"
+)
 
 if "df" not in st.session_state or st.session_state["df"] is None:
-    st.warning("⚠️ No dataset loaded. Please load a dataset from the Home page.")
+    render_empty_state_warning()
     st.stop()
 
 df = st.session_state["df"]

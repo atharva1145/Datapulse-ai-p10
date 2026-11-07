@@ -20,6 +20,7 @@ if str(ROOT_DIR) not in sys.path:
 from modules.ml_recommender import recommend_ml_task
 from modules.lifecycle import get_ml_lifecycle_stages, get_genai_vs_discriminative_comparison
 from modules.visualization import plot_class_probability_distribution
+from modules.ui_components import render_page_header, render_empty_state_warning
 
 st.set_page_config(page_title="ML Recommender - CSV INSIGHT AI", page_icon="🤖", layout="wide")
 
@@ -29,11 +30,14 @@ if css_path.exists():
     with open(css_path, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.title("🤖 ML Task Recommender & Lifecycle Studio")
-st.caption("P10 – Module U1 & Unit I: Machine Learning Task Recommendation, Candidate Algorithms & 10-Stage Lifecycle")
+render_page_header(
+    page_title="ML Task Recommender & Lifecycle Studio",
+    module_tag="MODULE U1 & UNIT I",
+    subtitle="Automated Machine Learning Task Heuristics, Candidate Algorithms, and 10-Stage Roadmap"
+)
 
 if "df" not in st.session_state or st.session_state["df"] is None:
-    st.warning("⚠️ No dataset loaded. Please load a dataset from the Home page.")
+    render_empty_state_warning()
     st.stop()
 
 df = st.session_state["df"]
