@@ -23,6 +23,12 @@ from modules.visualization import plot_class_probability_distribution
 
 st.set_page_config(page_title="ML Recommender - CSV INSIGHT AI", page_icon="🤖", layout="wide")
 
+# Load CSS
+css_path = ROOT_DIR / "assets" / "styles.css"
+if css_path.exists():
+    with open(css_path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.title("🤖 ML Task Recommender & Lifecycle Studio")
 st.caption("P10 – Module U1 & Unit I: Machine Learning Task Recommendation, Candidate Algorithms & 10-Stage Lifecycle")
 

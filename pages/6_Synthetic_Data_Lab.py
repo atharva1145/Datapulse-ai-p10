@@ -36,6 +36,12 @@ from modules.ml_recommender import recommend_ml_task
 
 st.set_page_config(page_title="Synthetic Data Lab - CSV INSIGHT AI", page_icon="🧬", layout="wide")
 
+# Load CSS
+css_path = ROOT_DIR / "assets" / "styles.css"
+if css_path.exists():
+    with open(css_path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.title("🧬 Synthetic Data Lab & Generative AI Studio")
 st.caption("P10 – Module U4 & Unit IV: PyTorch CTGAN Tabular Generation, KS-Fidelity Metrics & Visual Infographic Synthesis")
 

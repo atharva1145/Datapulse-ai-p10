@@ -22,6 +22,12 @@ from config.settings import DOCS_DIR, STUDENT_NAME, ROLL_NUMBER
 
 st.set_page_config(page_title="Final Report - CSV INSIGHT AI", page_icon="📑", layout="wide")
 
+# Load CSS
+css_path = ROOT_DIR / "assets" / "styles.css"
+if css_path.exists():
+    with open(css_path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.title("📑 Academic Deliverables & Final Report")
 st.caption(f"P10 – College Continuous Assessment Mini Project | Student: {STUDENT_NAME} (Roll No: {ROLL_NUMBER})")
 

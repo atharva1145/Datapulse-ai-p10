@@ -22,6 +22,12 @@ from modules.ml_recommender import recommend_ml_task
 
 st.set_page_config(page_title="Dashboard - CSV INSIGHT AI", page_icon="📊", layout="wide")
 
+# Load CSS
+css_path = ROOT_DIR / "assets" / "styles.css"
+if css_path.exists():
+    with open(css_path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.title("📊 Executive Dataset Dashboard")
 st.caption("P10 – Unit I: High-Level Dataset Profiling & Empirical Health Scoring")
 
@@ -39,25 +45,67 @@ with st.spinner("Computing statistical profile and data quality metrics..."):
     profile = profile_dataset(df)
 
 # ==============================================================================
-# SECTION 1: KPI CARDS
+# SECTION 1: KPI CARDS (MODERN SaaS STYLE)
 # ==============================================================================
-st.markdown(f"### 📌 Dataset: `{dataset_name}`")
+st.markdown(f"### 📌 Active Dataset: `{dataset_name}`")
 
-kpi1, kpi2, kpi3, kpi4, kpi5, kpi6 = st.columns(6)
-with kpi1:
-    st.metric("Total Rows", f"{profile['total_rows']:,}")
-with kpi2:
-    st.metric("Total Columns", profile["total_cols"])
-with kpi3:
-    st.metric("Missing Values", f"{profile['missing_cells']:,}", f"{profile['missing_pct']}% cells", delta_color="inverse")
-with kpi4:
-    st.metric("Duplicate Rows", f"{profile['duplicate_rows']:,}", f"{profile['duplicate_pct']}% rows", delta_color="inverse")
-with kpi5:
-    st.metric("Numerical Cols", len(profile["numerical_cols"]))
-with kpi6:
-    st.metric("Categorical Cols", len(profile["categorical_cols"]))
+k1, k2, k3, k4, k5, k6 = st.columns(6)
 
-st.markdown("---")
+with k1:
+    st.markdown(f"""
+    <div class="kpi-metric-card">
+        <div class="kpi-label">Total Rows</div>
+        <div class="kpi-value">{profile['total_rows']:,}</div>
+        <div class="kpi-delta">Records Loaded</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with k2:
+    st.markdown(f"""
+    <div class="kpi-metric-card">
+        <div class="kpi-label">Total Columns</div>
+        <div class="kpi-value">{profile['total_cols']}</div>
+        <div class="kpi-delta">Attributes</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with k3:
+    st.markdown(f"""
+    <div class="kpi-metric-card" style="border-left-color: {'#10B981' if profile['missing_cells'] == 0 else '#EF4444'};">
+        <div class="kpi-label">Missing Values</div>
+        <div class="kpi-value">{profile['missing_cells']:,}</div>
+        <div class="kpi-delta" style="color: {'#10B981' if profile['missing_cells'] == 0 else '#EF4444'};">{profile['missing_pct']}% of Cells</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with k4:
+    st.markdown(f"""
+    <div class="kpi-metric-card" style="border-left-color: {'#10B981' if profile['duplicate_rows'] == 0 else '#F59E0B'};">
+        <div class="kpi-label">Duplicate Rows</div>
+        <div class="kpi-value">{profile['duplicate_rows']:,}</div>
+        <div class="kpi-delta" style="color: {'#10B981' if profile['duplicate_rows'] == 0 else '#F59E0B'};">{profile['duplicate_pct']}% Rows</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with k5:
+    st.markdown(f"""
+    <div class="kpi-metric-card">
+        <div class="kpi-label">Numerical</div>
+        <div class="kpi-value">{len(profile['numerical_cols'])}</div>
+        <div class="kpi-delta">Continuous Features</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with k6:
+    st.markdown(f"""
+    <div class="kpi-metric-card">
+        <div class="kpi-label">Categorical</div>
+        <div class="kpi-value">{len(profile['categorical_cols'])}</div>
+        <div class="kpi-delta">Discrete Features</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<div style='height: 18px;'></div>", unsafe_allow_html=True)
 
 # ==============================================================================
 # SECTION 2: DATASET QUALITY SCORE (FORMULA GROUNDED)
@@ -66,11 +114,14 @@ col_score, col_penalties = st.columns([1, 2])
 
 qs = profile["quality_score"]
 with col_score:
-    st.markdown("### 🛡️ Data Quality Score")
-    score_val = qs["score"]
-    st.markdown(f"<div style='font-size: 3rem; font-weight: 800; color: #4F46E5;'>{score_val}/100</div>", unsafe_allow_html=True)
-    st.markdown(f"**Rating:** <span class='quality-score-badge {qs['badge_class']}'>{qs['rating']}</span>", unsafe_allow_html=True)
-    st.caption("Deterministic evaluation calculated directly from dataset integrity metrics.")
+    st.markdown(f"""
+    <div class="quality-card">
+        <div style="font-size: 0.82rem; font-weight: 700; color: #4F46E5; text-transform: uppercase; letter-spacing: 0.06em;">DATA QUALITY HEALTH</div>
+        <div class="quality-score-number">{qs['score']}</div>
+        <div style="font-size: 0.85rem; color: #64748B;">Out of 100 Points</div>
+        <div class="quality-score-badge {qs['badge_class']}">{qs['rating']}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col_penalties:
     st.markdown("### 🧮 Quality Score Penalty Breakdown")
@@ -93,7 +144,7 @@ st.markdown("### 🔍 Missing Values & Completeness")
 fig_missing = plot_missing_values(profile["missing_by_col"])
 st.plotly_chart(fig_missing, use_container_width=True)
 
-# Dataset Preview with Search
+# Dataset Preview
 st.markdown("### 📋 Interactive Dataset Preview")
 st.dataframe(df.head(20), use_container_width=True)
 st.caption(f"Showing first 20 records of {len(df):,} total rows.")

@@ -32,6 +32,12 @@ from config.settings import GEMINI_API_KEY
 
 st.set_page_config(page_title="AI Data Assistant - CSV INSIGHT AI", page_icon="💬", layout="wide")
 
+# Load CSS
+css_path = ROOT_DIR / "assets" / "styles.css"
+if css_path.exists():
+    with open(css_path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.title("💬 AI Data Assistant & LLM Studio")
 st.caption("P10 – Module U2: Natural Language Querying, AST-Safe Code Execution, and Prompt Engineering")
 

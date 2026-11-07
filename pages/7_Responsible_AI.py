@@ -28,6 +28,12 @@ from modules.responsible_ai import (
 
 st.set_page_config(page_title="Responsible AI - CSV INSIGHT AI", page_icon="🛡️", layout="wide")
 
+# Load CSS
+css_path = ROOT_DIR / "assets" / "styles.css"
+if css_path.exists():
+    with open(css_path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.title("🛡️ Responsible AI & Ethical Guardrails Studio")
 st.caption("P10 – Module U5 & Unit V: PII Detection, Class Imbalance Audits, Safety Guardrails & Hallucination Benchmarks")
 

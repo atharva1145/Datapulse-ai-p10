@@ -29,6 +29,12 @@ from modules.vision_analyzer import interpret_chart_with_vision
 
 st.set_page_config(page_title="Column Intelligence - CSV INSIGHT AI", page_icon="🧠", layout="wide")
 
+# Load CSS
+css_path = ROOT_DIR / "assets" / "styles.css"
+if css_path.exists():
+    with open(css_path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.title("🧠 Column Intelligence & Multimodal Vision")
 st.caption("P10 – Module U3: Sentence-BERT Semantic Embeddings, Column Clustering & Gemini Vision Chart Analysis")
 
