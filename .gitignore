@@ -33,3 +33,4 @@ htmlcov/
 # OS Specific
 .DS_Store
 Thumbs.db
+video_recordings/
