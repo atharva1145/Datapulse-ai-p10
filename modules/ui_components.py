@@ -8,8 +8,23 @@ Theme Switching (Dark/Light/System) and Screen Recording.
 """
 
 from typing import Optional
+from pathlib import Path
 import streamlit as st
 from modules.screen_recorder import render_screen_recorder
+
+
+def get_logo_html(size: int = 28) -> str:
+    """Returns an inline SVG logo HTML string for DataPulse AI."""
+    svg_path = Path(__file__).resolve().parent.parent / "assets" / "logo.svg"
+    if svg_path.exists():
+        try:
+            with open(svg_path, "r", encoding="utf-8") as f:
+                svg = f.read()
+                svg_sized = svg.replace('width="120"', f'width="{size}"').replace('height="120"', f'height="{size}"')
+                return f'<div style="width: {size}px; height: {size}px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;">{svg_sized}</div>'
+        except Exception:
+            pass
+    return '<span style="font-size: 1.25rem;">📊</span>'
 
 
 def apply_theme() -> str:
@@ -148,10 +163,13 @@ def render_page_header(
         vertical_alignment="center"
     )
 
+    logo_icon = get_logo_html(size=28)
+    logo_popover = get_logo_html(size=22)
+
     with top_col_brand:
         st.markdown(f"""
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.25rem;">📊</span>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            {logo_icon}
             <span style="font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em;">DataPulse AI</span>
             <span style="color: #64748B; font-size: 0.85rem;">/</span>
             <span style="font-size: 0.88rem; font-weight: 600; color: #818CF8;">{page_title}</span>
@@ -174,9 +192,10 @@ def render_page_header(
     with top_col_menu:
         safe_key_suffix = page_title.lower().replace(' ', '_').replace('/', '_')
         with st.popover("⋮", help="Settings, Theme & Screen Recording"):
-            st.markdown("""
-            <div style="font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
-                <span>📊</span> <span>DataPulse AI</span>
+            st.markdown(f"""
+            <div style="font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                {logo_popover}
+                <span>DataPulse AI</span>
                 <span style="font-size: 0.7rem; background: rgba(99,102,241,0.2); color: #818CF8; padding: 2px 6px; border-radius: 4px;">v2.4</span>
             </div>
             """, unsafe_allow_html=True)

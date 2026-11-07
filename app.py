@@ -25,12 +25,12 @@ from config.settings import (
     MAX_UPLOAD_SIZE_MB
 )
 from modules.data_loader import load_csv
-from modules.ui_components import render_page_header
+from modules.ui_components import render_page_header, get_logo_html
 
 # Configure page layout and metadata
 st.set_page_config(
     page_title=f"{APP_NAME} - Enterprise AI Platform",
-    page_icon="📊",
+    page_icon=str(ROOT_DIR / "assets" / "favicon.png"),
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -73,15 +73,15 @@ if st.session_state["df"] is None:
 # ==============================================================================
 with st.sidebar:
     st.markdown(f"""
-    <div class="sidebar-brand-card">
-        <div style="font-size: 1.1rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em;">
-            {APP_NAME}
-        </div>
-        <div style="font-size: 0.75rem; color: #94A3B8; font-weight: 600; margin-top: 2px;">
-            Problem P10 | Continuous Assessment
-        </div>
-        <div style="font-size: 0.72rem; color: #38BDF8; font-weight: 700; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em;">
-            Autonomous ML Engine
+    <div class="sidebar-brand-card" style="display: flex; align-items: center; gap: 12px;">
+        {get_logo_html(size=38)}
+        <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 1.15rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; line-height: 1.2;">
+                {APP_NAME}
+            </div>
+            <div style="font-size: 0.72rem; color: #38BDF8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px;">
+                Autonomous ML Engine
+            </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
