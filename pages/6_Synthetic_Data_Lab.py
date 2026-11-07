@@ -226,15 +226,3 @@ with tab_infographic:
             file_name=f"{dataset_name.replace(' ', '_').lower()}_infographic.png",
             mime="image/png"
         )
-
-    st.markdown("---")
-    st.markdown("#### 📜 Generative Model Documentation & License Card:")
-    meta = get_diffusion_model_metadata()
-    st.markdown(f"- **Architecture / Engine:** `{meta['model_name']}`")
-    st.markdown(f"- **Methodology:** `{meta['method']}`")
-    st.markdown(f"- **Modality:** `{meta['modality']}`")
-    st.markdown(f"- **License:** `{meta['license']}`")
-    st.markdown(f"- **Hardware Profile:** `{meta['hardware_profile']}`")
-    st.markdown("##### Technical Limitations:")
-    for lim in meta["limitations"]:
-        st.markdown(f"- {lim}")

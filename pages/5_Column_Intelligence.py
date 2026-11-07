@@ -49,10 +49,9 @@ if "df" not in st.session_state or st.session_state["df"] is None:
 df = st.session_state["df"]
 dataset_name = st.session_state.get("dataset_name", "Uploaded Dataset")
 
-tab_bert, tab_vision, tab_models = st.tabs([
+tab_bert, tab_vision = st.tabs([
     "🔗 Sentence-BERT Column Clustering",
-    "👁️ Gemini Multimodal Vision Chart Reader",
-    "📖 Unit III: GPT vs. BERT Architecture"
+    "👁️ Gemini Multimodal Vision Chart Reader"
 ])
 
 # ==============================================================================
@@ -163,28 +162,4 @@ with tab_vision:
         else:
             st.info("Click the button above to run Gemini Vision chart interpretation.")
 
-# ==============================================================================
-# TAB 3: UNIT III: GPT VS. BERT ARCHITECTURAL FOUNDATIONS
-# ==============================================================================
-with tab_models:
-    st.markdown("### 📖 Unit III: GPT-Style vs. BERT-Family Architectures")
-    st.caption("Deep technical comparison between Causal Autoregressive Decoders and Masked Bidirectional Encoders.")
 
-    gpt_bert_df = get_gpt_vs_bert_architectural_comparison()
-    st.dataframe(gpt_bert_df, use_container_width=True, hide_index=True)
-
-    st.markdown("---")
-    st.markdown("#### 🔬 How Both Paradigms Are Integrated in P10:")
-    c_gpt, c_bert = st.columns(2)
-    with c_gpt:
-        st.markdown(r"""
-        **1. GPT-Style Autoregressive Generation (Module U2):**
-        - Operates sequentially: $P(w_1, w_2, \dots, w_T) = \prod_{t=1}^T P(w_t \mid w_{<t})$
-        - Powers the **AI Data Assistant** by synthesizing executable Pandas code from natural language queries and generating plain-English summaries.
-        """)
-    with c_bert:
-        st.markdown(r"""
-        **2. BERT-Style Bidirectional Representation (Module U3):**
-        - Operates simultaneously across both left and right context: $h_i = \text{Encoder}(w_1, \dots, w_N)$
-        - Powers **Sentence-BERT (`all-MiniLM-L6-v2`)** to create dense 384-dimensional feature representations for semantic column grouping.
-        """)

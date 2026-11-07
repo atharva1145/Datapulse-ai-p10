@@ -48,10 +48,9 @@ if "df" not in st.session_state or st.session_state["df"] is None:
 df = st.session_state["df"]
 dataset_name = st.session_state.get("dataset_name", "Uploaded Dataset")
 
-tab_pii, tab_imbalance, tab_guardrails, tab_bench = st.tabs([
+tab_pii, tab_imbalance, tab_bench = st.tabs([
     "🕵️ Sensitive Data & PII Detection",
     "⚖️ Class Imbalance Analysis",
-    "🔒 System Safety Guardrails",
     "🧪 Empirical Bias & Hallucination Test Bench"
 ])
 
@@ -145,24 +144,7 @@ with tab_imbalance:
         st.info(imb_res["metric_guidance"])
 
 # ==============================================================================
-# TAB 3: SYSTEM SAFETY GUARDRAILS (UNIT V)
-# ==============================================================================
-with tab_guardrails:
-    st.markdown("### 🔒 System Security Guardrails & Defense-in-Depth Architecture")
-    st.caption("Active safety mechanisms implemented to protect system integrity and prevent unauthorized execution.")
-
-    guardrails = [
-        {"Guardrail": "File Upload Sanitization", "Status": "Active ✅", "Mechanism": "File size capped at 15MB, delimiter sniffing, encoding fallbacks, and 0-byte file rejection."},
-        {"Guardrail": "AST Code Syntax Allowlist", "Status": "Active ✅", "Mechanism": "Strict Abstract Syntax Tree visitor blocks imports, disk writes, eval/exec, and network sockets."},
-        {"Guardrail": "Isolated Local Namespace", "Status": "Active ✅", "Mechanism": "Code runs in an isolated dictionary containing only df copy, pd, np, and safe math primitives."},
-        {"Guardrail": "Execution Timeout Limit", "Status": "Active ✅", "Mechanism": "Thread-based 5-second execution timeout prevents infinite loops and denial-of-service."},
-        {"Guardrail": "Privacy Preserving Context", "Status": "Active ✅", "Mechanism": "LLM prompts receive schema context with personal identifiers masked; raw tables are never sent."},
-        {"Guardrail": "Deterministic Fallback Logic", "Status": "Active ✅", "Mechanism": "Full system operates offline when API keys are absent, guaranteeing reliability during evaluation."}
-    ]
-    st.dataframe(pd.DataFrame(guardrails), use_container_width=True, hide_index=True)
-
-# ==============================================================================
-# TAB 4: EMPIRICAL BIAS & HALLUCINATION TEST BENCH (UNIT V)
+# TAB 3: EMPIRICAL BIAS & HALLUCINATION TEST BENCH (UNIT V)
 # ==============================================================================
 with tab_bench:
     st.markdown("### 🧪 Empirical Bias & Hallucination Test Bench")

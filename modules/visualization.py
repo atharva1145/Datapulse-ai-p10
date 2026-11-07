@@ -22,22 +22,48 @@ sns.set_theme(style="darkgrid", palette="muted")
 
 
 def apply_plotly_enterprise_theme(fig: go.Figure) -> go.Figure:
-    """Applies high-end enterprise dark theme to any Plotly figure."""
-    fig.update_layout(
-        template="plotly_dark",
-        paper_bgcolor="rgba(15, 23, 42, 0.6)",
-        plot_bgcolor="rgba(15, 23, 42, 0.4)",
-        font=dict(family="Inter, -apple-system, sans-serif", color="#CBD5E1", size=12),
-        title_font=dict(family="Inter, -apple-system, sans-serif", color="#F8FAFC", size=14),
-        margin=dict(l=24, r=24, t=46, b=24),
-        hoverlabel=dict(
-            bgcolor="#1E293B",
-            font_size=12,
-            font_family="Inter, sans-serif"
+    """Applies theme-aware (Light or Dark) styling to any Plotly figure."""
+    theme_choice = "Dark (Enterprise)"
+    try:
+        import streamlit as st
+        if hasattr(st, "session_state") and "app_theme" in st.session_state:
+            theme_choice = st.session_state["app_theme"]
+    except Exception:
+        pass
+
+    if theme_choice == "Light (Clean)":
+        fig.update_layout(
+            template="plotly_white",
+            paper_bgcolor="rgba(255, 255, 255, 0.9)",
+            plot_bgcolor="rgba(248, 250, 252, 0.8)",
+            font=dict(family="Inter, -apple-system, sans-serif", color="#0F172A", size=12),
+            title_font=dict(family="Inter, -apple-system, sans-serif", color="#0F172A", size=14),
+            margin=dict(l=24, r=24, t=46, b=24),
+            hoverlabel=dict(
+                bgcolor="#FFFFFF",
+                font_size=12,
+                font_family="Inter, sans-serif",
+                font_color="#0F172A"
+            )
         )
-    )
-    fig.update_xaxes(gridcolor="#1E293B", zerolinecolor="#334155")
-    fig.update_yaxes(gridcolor="#1E293B", zerolinecolor="#334155")
+        fig.update_xaxes(gridcolor="#E2E8F0", zerolinecolor="#CBD5E1")
+        fig.update_yaxes(gridcolor="#E2E8F0", zerolinecolor="#CBD5E1")
+    else:
+        fig.update_layout(
+            template="plotly_dark",
+            paper_bgcolor="rgba(15, 23, 42, 0.6)",
+            plot_bgcolor="rgba(15, 23, 42, 0.4)",
+            font=dict(family="Inter, -apple-system, sans-serif", color="#CBD5E1", size=12),
+            title_font=dict(family="Inter, -apple-system, sans-serif", color="#F8FAFC", size=14),
+            margin=dict(l=24, r=24, t=46, b=24),
+            hoverlabel=dict(
+                bgcolor="#1E293B",
+                font_size=12,
+                font_family="Inter, sans-serif"
+            )
+        )
+        fig.update_xaxes(gridcolor="#1E293B", zerolinecolor="#334155")
+        fig.update_yaxes(gridcolor="#1E293B", zerolinecolor="#334155")
     return fig
 
 

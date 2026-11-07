@@ -25,7 +25,8 @@ from config.settings import (
     MAX_UPLOAD_SIZE_MB
 )
 from modules.data_loader import load_csv
-from modules.ui_components import render_page_header
+from modules.ui_components import render_page_header, render_theme_selector
+from modules.screen_recorder import render_screen_recorder
 
 # Configure page layout and metadata
 st.set_page_config(
@@ -166,22 +167,26 @@ with st.sidebar:
 # ==============================================================================
 render_page_header(
     page_title="Platform Ingestion & Overview",
-    module_tag="CORE ARCHITECTURE",
-    subtitle="Continuous Assessment P10: Enterprise CSV profiling, LLM Pandas Assistant, Sentence-BERT semantic column clustering, Multimodal Vision, and PyTorch CTGAN tabular generation."
+    module_tag="CORE PLATFORM",
+    subtitle="Continuous Assessment P10 | Autonomous CSV Profiling, ML Task Recommendation & AI Analytics"
 )
+
+# In-Browser Screen Recorder Studio for Demo Videos
+with st.expander("📹 Open Demo Video Screen Recorder Studio (2–3 Min Record & Download)", expanded=False):
+    render_screen_recorder(theme=st.session_state.get("app_theme", "Dark"))
 
 st.markdown(f"""
 <div class="hero-executive-card">
-    <div class="hero-executive-title">Dataset Intelligence &amp; Autonomous ML Recommender</div>
+    <div class="hero-executive-title">Autonomous Tabular Intelligence &amp; ML Recommender</div>
     <div class="hero-executive-subtitle">
-        Enterprise-grade tabular profiling engine incorporating empirical statistical health scoring, 
-        natural-language Pandas query synthesis with strict AST validation sandboxes, Sentence-BERT semantic 
-        embeddings, multimodal vision chart reasoning, and PyTorch CTGAN tabular synthesis.
+        Upload or select any CSV dataset to instantly generate statistical health profiles, optimal ML algorithms, 
+        natural-language query synthesis with AST security guardrails, Sentence-BERT semantic column embeddings, 
+        and PyTorch CTGAN synthetic tabular data.
     </div>
     <div class="hero-stats-row">
         <div class="hero-stat-item">Academic Subject: <strong>{COURSE_NAME}</strong></div>
-        <div class="hero-stat-item">Continuous Assessment: <strong>P10 Practical</strong></div>
-        <div class="hero-stat-item">Deployment Ready: <strong>Hugging Face &amp; Streamlit Cloud</strong></div>
+        <div class="hero-stat-item">Continuous Assessment: <strong>Problem P10</strong></div>
+        <div class="hero-stat-item">Student: <strong>{STUDENT_NAME} [{ROLL_NUMBER}]</strong></div>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -198,9 +203,8 @@ with c1:
             <span class="module-title">Visual Analytics &amp; ML Lifecycle</span>
         </div>
         <div class="module-desc">
-            Calculates distribution moments, KDE curves, outlier quartiles, and Pearson correlation matrices. 
-            Deterministic rule heuristics determine optimal learning paradigms (Supervised Classification, 
-            Regression, or Unsupervised Clustering) and generate a 10-stage actionable ML lifecycle roadmap.
+            Automated column distributions, IQR outlier detection, correlation heatmaps, 
+            and deterministic machine learning task recommendation with candidate models.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -213,9 +217,8 @@ with c2:
             <span class="module-title">LLM Data Assistant &amp; AST Sandbox</span>
         </div>
         <div class="module-desc">
-            Natural language conversational dataset queries powered by Google Gemini 2.5 Flash. 
-            All synthesized Pandas code is checked through an <b>Abstract Syntax Tree (AST) security allowlist</b>, 
-            blocking unauthorized imports or disk writes before execution in a restricted namespace.
+            Natural language conversational dataset queries powered by Gemini 2.5 Flash, 
+            verified through an <b>AST security allowlist</b> blocking malicious imports and writes.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -231,9 +234,8 @@ with c3:
             <span class="module-title">Column Intelligence &amp; Multimodal Vision</span>
         </div>
         <div class="module-desc">
-            Sentence-BERT (<code>all-MiniLM-L6-v2</code>) encodes rich column metadata into 384-dimensional dense 
-            vectors to cluster semantically related attributes. The multimodal vision pipeline transmits 
-            rendered chart buffers to Gemini Vision to detect skewness, modality peaks, and anomalies.
+            Sentence-BERT (384-d) semantic column clustering and Gemini Multimodal Vision 
+            chart reasoning for skewness, central tendencies, and anomalies.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -246,9 +248,8 @@ with c4:
             <span class="module-title">CTGAN Synthetic Data &amp; Responsible AI</span>
         </div>
         <div class="module-desc">
-            PyTorch-powered Conditional Tabular GAN (CTGAN) synthesizes privacy-preserving rows with 
-            Kolmogorov-Smirnov two-sample validation. Responsible AI scanners flag sensitive PII columns 
-            and evaluate target class imbalance with Accuracy Paradox guidance.
+            PyTorch-based CTGAN synthetic tabular generation with Kolmogorov-Smirnov test 
+            fidelity validation, automated PII auditing, and class imbalance alerts.
         </div>
     </div>
     """, unsafe_allow_html=True)

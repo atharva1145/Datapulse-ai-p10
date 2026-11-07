@@ -43,18 +43,15 @@ if "df" not in st.session_state or st.session_state["df"] is None:
 df = st.session_state["df"]
 dataset_name = st.session_state.get("dataset_name", "Uploaded Dataset")
 
-tab_recommender, tab_lifecycle, tab_unit1 = st.tabs([
+tab_recommender, tab_lifecycle = st.tabs([
     "🎯 ML Task & Algorithm Recommendation",
-    "🔄 10-Stage ML Lifecycle Roadmap",
-    "📚 Unit I Theoretical Foundations (GenAI vs Discriminative)"
+    "🔄 10-Stage ML Lifecycle Roadmap"
 ])
 
 # ==============================================================================
 # TAB 1: ML TASK RECOMMENDATION
 # ==============================================================================
 with tab_recommender:
-    st.markdown("### 🎯 Task Recommendation Configuration")
-    
     col_target, col_info = st.columns([1, 2])
     with col_target:
         target_options = ["None (Unsupervised / Clustering)"] + list(df.columns)
@@ -74,11 +71,15 @@ with tab_recommender:
     rec = recommend_ml_task(df, target_column=target_val)
 
     with col_info:
-        st.success(f"**Recommended Learning Paradigm:** `{rec['learning_type']}`")
-        st.markdown(f"### **Suggested Task:** {rec['suggested_task']}")
+        st.success(f"**Recommended Paradigm:** `{rec['learning_type']}`")
+        st.markdown(f"#### **Suggested Task:** {rec['suggested_task']}")
         st.write(rec["reason"])
 
-    st.markdown("---")
+    # If classification, show empirical target class distribution
+    if target_val and target_val in df.columns and "Classification" in rec["suggested_task"]:
+        fig_prob = plot_class_probability_distribution(df, target_val)
+        st.plotly_chart(fig_prob, use_container_width=True)
+
     st.markdown("### 🛠️ Candidate Machine Learning Algorithms")
     algo_df = pd.DataFrame(rec["candidate_algorithms"])
     algo_df.columns = ["Algorithm", "Architectural Role & Justification"]
@@ -95,49 +96,22 @@ with tab_recommender:
         for l in rec.get("limitations", []):
             st.markdown(f"- {l}")
 
-    st.markdown("---")
-    st.markdown("#### 💡 Note on Reinforcement Learning (RL)")
-    st.warning(f"**Academic Notice:** {rec.get('rl_note')}")
+    if rec.get("rl_note"):
+        st.info(f"💡 **RL Feasibility:** {rec.get('rl_note')}")
 
 # ==============================================================================
 # TAB 2: 10-STAGE ML LIFECYCLE ROADMAP
 # ==============================================================================
 with tab_lifecycle:
     st.markdown("### 🔄 End-to-End Machine Learning Lifecycle")
-    st.caption("Customized sequentially for the uploaded dataset's features, sample size, and recommended task.")
+    st.caption(f"Sequential roadmap generated for `{dataset_name}` based on features and sample size.")
 
     stages = get_ml_lifecycle_stages(df, target_col=target_val if target_val else "None", ml_task_info=rec)
 
     for stage in stages:
-        with st.expander(f"**Stage {stage['step']}: {stage['icon']} {stage['name']}**", expanded=(stage['step'] <= 3)):
-            st.markdown(f"**General Objective:** {stage['objective']}")
+        with st.expander(f"**Stage {stage['step']}: {stage['icon']} {stage['name']}**", expanded=(stage['step'] <= 2)):
+            st.markdown(f"**Objective:** {stage['objective']}")
             st.markdown(f"**👉 Action on `{dataset_name}`:** {stage['dataset_action']}")
-
-# ==============================================================================
-# TAB 3: UNIT I SYLLABUS FOUNDATIONS
-# ==============================================================================
-with tab_unit1:
-    st.markdown("### 📚 Unit I – Foundations of Generative AI")
-    
-    st.markdown("#### 1. Generative AI vs. Discriminative AI Theoretical Comparison")
-    gen_disc_df = get_genai_vs_discriminative_comparison()
-    st.dataframe(gen_disc_df, use_container_width=True, hide_index=True)
-
-    st.markdown("---")
-    st.markdown("#### 2. Empirical Probability Distribution Visualization")
-    st.caption(
-        "Grounded in real dataset frequencies: "
-        "P(C_k) = N_k / N. Shows prior probabilities without fabricated model confidence."
-    )
-    if target_val and target_val in df.columns:
-        fig_prob = plot_class_probability_distribution(df, target_val)
-        st.plotly_chart(fig_prob, use_container_width=True)
-    else:
-        # Fallback to first categorical or discrete column
-        discrete_candidates = [c for c in df.columns if df[c].nunique() <= 10]
-        if discrete_candidates:
-            fallback_col = discrete_candidates[0]
-            st.info(f"Showing class probabilities for discrete column `{fallback_col}`:")
             fig_prob = plot_class_probability_distribution(df, fallback_col)
             st.plotly_chart(fig_prob, use_container_width=True)
         else:
