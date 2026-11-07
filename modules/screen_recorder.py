@@ -197,13 +197,13 @@ def render_screen_recorder(theme: str = "dark") -> None:
                     <span>⏹️</span> Stop Recording
                 </button>
                 <button id="downloadBtn" class="btn-download" onclick="downloadVideo()">
-                    <span>⬇️</span> Download Video (10_Atharva_Shelar_P10_Demo.webm)
+                    <span>⬇️</span> Download Video (Demo_Recording_P10.webm)
                 </button>
             </div>
 
             <div class="teleprompter-box">
                 <b>🎬 2-Min Demo Script Cue:</b> 
-                <span class="cue-highlight">[0:00]</span> Intro (Atharva Shelar, Roll 10) &bull;
+                <span class="cue-highlight">[0:00]</span> Platform Overview &bull;
                 <span class="cue-highlight">[0:20]</span> Health Score &bull;
                 <span class="cue-highlight">[0:40]</span> Distributions &amp; ML Rec &bull;
                 <span class="cue-highlight">[1:00]</span> AST-Safe Query &bull;
@@ -306,7 +306,7 @@ def render_screen_recorder(theme: str = "dark") -> None:
                 const a = document.createElement('a');
                 a.style.display = 'none';
                 a.href = URL.createObjectURL(recordedBlob);
-                a.download = '10_Atharva_Shelar_P10_Demo.webm';
+                a.download = 'Demo_Recording_P10.webm';
                 document.body.appendChild(a);
                 a.click();
                 setTimeout(() => {

@@ -32,11 +32,11 @@ if css_path.exists():
 render_page_header(
     page_title="Academic Deliverables & PDF Report",
     module_tag="FINAL SUBMISSION",
-    subtitle=f"Official College Continuous Assessment Mini Project (P10) | Student: {STUDENT_NAME} (Roll No: {ROLL_NUMBER})"
+    subtitle="Continuous Assessment Deliverables & Official Verification Package (Problem P10)"
 )
 
 tab_pdf, tab_summary, tab_checklist = st.tabs([
-    "📥 Download Official PDF Report (10_Atharva_Shelar_P10.pdf)",
+    "📥 Download Official PDF Report",
     "📊 Cross-Dataset Benchmark Summary (Iris, Titanic, Wine)",
     "✅ Continuous Assessment Acceptance Checklist"
 ])
@@ -124,6 +124,6 @@ with tab_checklist:
         {"Requirement": "Three public datasets tested (Iris, Titanic, Wine Quality)", "Status": "Complete & Verified ✅"},
         {"Requirement": "Automated Pytest regression suite passing (40/40 tests)", "Status": "Complete & Verified ✅"},
         {"Requirement": "Standardized MODEL_CARD.md created in repository root", "Status": "Complete & Verified ✅"},
-        {"Requirement": "Downloadable academic PDF report (10_Atharva_Shelar_P10.pdf)", "Status": "Complete & Verified ✅"}
+        {"Requirement": "Downloadable academic PDF report (Official Submission Package)", "Status": "Complete & Verified ✅"}
     ]
     st.dataframe(pd.DataFrame(checklist_items), use_container_width=True, hide_index=True)

@@ -252,8 +252,8 @@ def render_page_header(
                 <div class="status-dot-active"></div>
                 <span>Engine Online</span>
             </div>
-            <div class="meta-chip student-chip">
-                <span style="color: #818CF8;">Atharva Shelar</span> [10]
+            <div class="meta-chip version-chip">
+                <span style="color: #818CF8;">v2.4 Enterprise</span>
             </div>
         </div>
     </div>

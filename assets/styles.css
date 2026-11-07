@@ -140,7 +140,7 @@ footer {
     color: #FBBF24;
 }
 
-.student-chip {
+.version-chip, .student-chip {
     background: rgba(99, 102, 241, 0.12);
     border-color: rgba(99, 102, 241, 0.3);
 }

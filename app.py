@@ -82,7 +82,7 @@ with st.sidebar:
             Problem P10 | Continuous Assessment
         </div>
         <div style="font-size: 0.72rem; color: #38BDF8; font-weight: 700; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em;">
-            Student: {STUDENT_NAME} [{ROLL_NUMBER}]
+            Autonomous ML Engine
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -184,9 +184,9 @@ st.markdown(f"""
         and PyTorch CTGAN synthetic tabular data.
     </div>
     <div class="hero-stats-row">
-        <div class="hero-stat-item">Academic Subject: <strong>{COURSE_NAME}</strong></div>
-        <div class="hero-stat-item">Continuous Assessment: <strong>Problem P10</strong></div>
-        <div class="hero-stat-item">Student: <strong>{STUDENT_NAME} [{ROLL_NUMBER}]</strong></div>
+        <div class="hero-stat-item">Paradigm: <strong>Generative &amp; Discriminative AI</strong></div>
+        <div class="hero-stat-item">Project Code: <strong>Problem P10</strong></div>
+        <div class="hero-stat-item">Engine: <strong>Gemini 2.5 + PyTorch CTGAN</strong></div>
     </div>
 </div>
 """, unsafe_allow_html=True)
