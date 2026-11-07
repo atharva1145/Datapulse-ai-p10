@@ -1,11 +1,11 @@
 """
 Module: In-Browser Screen Recorder Studio
-Student: Atharva Shelar (Roll No: 10)
-Subject: Generative AI (P10)
+Student Assessment: Problem P10
+Subject: Generative AI
 
 Provides a lightweight, zero-dependency in-browser screen recorder widget using
-the HTML5 MediaStream and MediaRecorder API. Allows Atharva to record, preview,
-and download the 2-3 minute demo video directly from the application interface.
+the HTML5 MediaStream and MediaRecorder API. Allows recording, previewing,
+and downloading the 2-3 minute demo video directly from the application interface.
 """
 
 import streamlit as st
@@ -22,47 +22,47 @@ def render_screen_recorder(theme: str = "dark") -> None:
     text_secondary = "#94A3B8" if is_dark else "#64748B"
     cue_bg = "#1E293B" if is_dark else "#F1F5F9"
     
-    recorder_html = f"""
+    html_template = """
     <!DOCTYPE html>
     <html>
     <head>
         <meta charset="utf-8">
         <style>
-            * {{
+            * {
                 box-sizing: border-box;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            }}
-            body {{
+            }
+            body {
                 margin: 0;
                 padding: 12px;
                 background: transparent;
-                color: {text_primary};
-            }}
-            .recorder-container {{
-                background: {bg_card};
-                border: 1px solid {border_color};
+                color: __TEXT_PRIMARY__;
+            }
+            .recorder-container {
+                background: __BG_CARD__;
+                border: 1px solid __BORDER_COLOR__;
                 border-radius: 12px;
                 padding: 16px 20px;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            }}
-            .rec-header {{
+            }
+            .rec-header {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 margin-bottom: 14px;
-            }}
-            .rec-title-group {{
+            }
+            .rec-title-group {
                 display: flex;
                 align-items: center;
                 gap: 8px;
-            }}
-            .rec-title {{
+            }
+            .rec-title {
                 font-size: 1.05rem;
                 font-weight: 700;
                 margin: 0;
-                color: {text_primary};
-            }}
-            .badge-live {{
+                color: __TEXT_PRIMARY__;
+            }
+            .badge-live {
                 display: none;
                 align-items: center;
                 gap: 6px;
@@ -75,39 +75,39 @@ def render_screen_recorder(theme: str = "dark") -> None:
                 font-weight: 700;
                 letter-spacing: 0.05em;
                 text-transform: uppercase;
-            }}
-            .badge-live.active {{
+            }
+            .badge-live.active {
                 display: flex;
-            }}
-            .pulse-dot {{
+            }
+            .pulse-dot {
                 width: 8px;
                 height: 8px;
                 background: #EF4444;
                 border-radius: 50%;
                 animation: pulse 1s infinite;
-            }}
-            @keyframes pulse {{
-                0% {{ opacity: 1; }}
-                50% {{ opacity: 0.3; }}
-                100% {{ opacity: 1; }}
-            }}
-            .timer-display {{
+            }
+            @keyframes pulse {
+                0% { opacity: 1; }
+                50% { opacity: 0.3; }
+                100% { opacity: 1; }
+            }
+            .timer-display {
                 font-family: monospace;
                 font-size: 1.25rem;
                 font-weight: 700;
                 color: #38BDF8;
-                background: {cue_bg};
+                background: __CUE_BG__;
                 padding: 4px 12px;
                 border-radius: 6px;
-                border: 1px solid {border_color};
-            }}
-            .btn-row {{
+                border: 1px solid __BORDER_COLOR__;
+            }
+            .btn-row {
                 display: flex;
                 gap: 10px;
                 align-items: center;
                 margin-bottom: 14px;
-            }}
-            button {{
+            }
+            button {
                 cursor: pointer;
                 font-size: 0.82rem;
                 font-weight: 600;
@@ -118,61 +118,61 @@ def render_screen_recorder(theme: str = "dark") -> None:
                 display: flex;
                 align-items: center;
                 gap: 6px;
-            }}
-            .btn-start {{
+            }
+            .btn-start {
                 background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
                 color: white;
                 box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-            }}
-            .btn-start:hover {{
+            }
+            .btn-start:hover {
                 transform: translateY(-1px);
                 box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-            }}
-            .btn-stop {{
+            }
+            .btn-stop {
                 background: #334155;
                 color: #F8FAFC;
                 border: 1px solid #475569;
-            }}
-            .btn-stop:hover {{
+            }
+            .btn-stop:hover {
                 background: #475569;
-            }}
-            .btn-download {{
+            }
+            .btn-download {
                 background: linear-gradient(135deg, #10B981 0%, #059669 100%);
                 color: white;
                 display: none;
                 box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-            }}
-            .btn-download:hover {{
+            }
+            .btn-download:hover {
                 transform: translateY(-1px);
                 box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-            }}
-            .preview-container {{
+            }
+            .preview-container {
                 display: none;
                 margin-top: 12px;
-                border-top: 1px solid {border_color};
+                border-top: 1px solid __BORDER_COLOR__;
                 padding-top: 12px;
-            }}
-            video {{
+            }
+            video {
                 width: 100%;
                 max-height: 240px;
                 border-radius: 8px;
                 background: black;
-                border: 1px solid {border_color};
-            }}
-            .teleprompter-box {{
+                border: 1px solid __BORDER_COLOR__;
+            }
+            .teleprompter-box {
                 margin-top: 10px;
-                background: {cue_bg};
-                border: 1px solid {border_color};
+                background: __CUE_BG__;
+                border: 1px solid __BORDER_COLOR__;
                 border-radius: 8px;
                 padding: 10px 14px;
                 font-size: 0.78rem;
-                color: {text_secondary};
+                color: __TEXT_SECONDARY__;
                 line-height: 1.5;
-            }}
-            .cue-highlight {{
+            }
+            .cue-highlight {
                 color: #818CF8;
                 font-weight: 700;
-            }}
+            }
         </style>
     </head>
     <body>
@@ -214,7 +214,7 @@ def render_screen_recorder(theme: str = "dark") -> None:
             </div>
 
             <div id="previewArea" class="preview-container">
-                <div style="font-size: 0.8rem; font-weight: 600; color: {text_primary}; margin-bottom: 6px;">
+                <div style="font-size: 0.8rem; font-weight: 600; color: __TEXT_PRIMARY__; margin-bottom: 6px;">
                     Preview Recorded Demonstration:
                 </div>
                 <video id="videoPreview" controls></video>
@@ -318,4 +318,14 @@ def render_screen_recorder(theme: str = "dark") -> None:
     </body>
     </html>
     """
+    
+    recorder_html = (
+        html_template
+        .replace("__BG_CARD__", bg_card)
+        .replace("__BORDER_COLOR__", border_color)
+        .replace("__TEXT_PRIMARY__", text_primary)
+        .replace("__TEXT_SECONDARY__", text_secondary)
+        .replace("__CUE_BG__", cue_bg)
+    )
+    
     components.html(recorder_html, height=270, scrolling=False)

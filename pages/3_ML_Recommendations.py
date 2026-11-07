@@ -112,7 +112,3 @@ with tab_lifecycle:
         with st.expander(f"**Stage {stage['step']}: {stage['icon']} {stage['name']}**", expanded=(stage['step'] <= 2)):
             st.markdown(f"**Objective:** {stage['objective']}")
             st.markdown(f"**👉 Action on `{dataset_name}`:** {stage['dataset_action']}")
-            fig_prob = plot_class_probability_distribution(df, fallback_col)
-            st.plotly_chart(fig_prob, use_container_width=True)
-        else:
-            st.info("Select a discrete or categorical target column above to visualize its prior probability distribution.")
