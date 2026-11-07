@@ -22,6 +22,13 @@ def get_gemini_client():
     """Initializes and returns the Google GenAI client if API key is present."""
     api_key = os.getenv("GEMINI_API_KEY", GEMINI_API_KEY)
     if not api_key or api_key == "your_gemini_api_key_here":
+        try:
+            import streamlit as st
+            if hasattr(st, "secrets") and "GEMINI_API_KEY" in st.secrets:
+                api_key = st.secrets["GEMINI_API_KEY"]
+        except Exception:
+            pass
+    if not api_key or api_key == "your_gemini_api_key_here":
         return None
     try:
         from google import genai
