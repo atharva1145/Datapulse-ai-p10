@@ -601,3 +601,35 @@ section[data-testid="stSidebar"] .stRadio label {
     margin-top: 14px;
     font-size: 0.8rem;
 }
+
+
+/* ==============================================================================
+   3-DOTS (⋮) OVERFLOW POPOVER MENU STYLING
+   ============================================================================== */
+div[data-testid="stPopover"] > button {
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    padding: 2px 10px !important;
+    border-radius: 8px !important;
+    background: #1E293B !important;
+    border: 1px solid #334155 !important;
+    color: #F8FAFC !important;
+    min-width: 42px !important;
+    height: 38px !important;
+    transition: all 0.2s ease !important;
+}
+
+div[data-testid="stPopover"] > button:hover {
+    border-color: #6366F1 !important;
+    background: #334155 !important;
+    color: #818CF8 !important;
+    transform: translateY(-1px) !important;
+}
+
+div[data-testid="stPopoverBody"] {
+    background: #0F172A !important;
+    border: 1px solid #334155 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+    padding: 16px !important;
+}

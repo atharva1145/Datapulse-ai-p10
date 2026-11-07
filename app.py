@@ -170,6 +170,38 @@ render_page_header(
     subtitle="Continuous Assessment P10 | Autonomous CSV Profiling, ML Task Recommendation & AI Analytics"
 )
 
+# 1-Click Fast Dataset Switcher
+col_btn1, col_btn2, col_btn3 = st.columns(3)
+with col_btn1:
+    if st.button("🌸 Load Iris (Multiclass)", use_container_width=True):
+        df_i, meta_i, _ = load_csv(SAMPLE_DATA_DIR / "iris.csv")
+        st.session_state["df"] = df_i
+        st.session_state["metadata"] = meta_i
+        st.session_state["dataset_name"] = "Iris Flower Dataset"
+        st.session_state["target_column"] = "species"
+        st.toast("✅ Ingested Iris Dataset (150 rows × 5 features)")
+        st.rerun()
+
+with col_btn2:
+    if st.button("🚢 Load Titanic (Binary / Imbalance)", use_container_width=True):
+        df_t, meta_t, _ = load_csv(SAMPLE_DATA_DIR / "titanic.csv")
+        st.session_state["df"] = df_t
+        st.session_state["metadata"] = meta_t
+        st.session_state["dataset_name"] = "Titanic Survival Dataset"
+        st.session_state["target_column"] = "Survived"
+        st.toast("✅ Ingested Titanic Dataset (891 rows × 12 features)")
+        st.rerun()
+
+with col_btn3:
+    if st.button("🍷 Load Wine Quality (Regression)", use_container_width=True):
+        df_w, meta_w, _ = load_csv(SAMPLE_DATA_DIR / "winequality_red.csv")
+        st.session_state["df"] = df_w
+        st.session_state["metadata"] = meta_w
+        st.session_state["dataset_name"] = "Wine Quality Dataset"
+        st.session_state["target_column"] = "quality"
+        st.toast("✅ Ingested Wine Quality Dataset (1,599 rows × 12 features)")
+        st.rerun()
+
 st.markdown(f"""
 <div class="hero-executive-card">
     <div class="hero-executive-title">Autonomous Tabular Intelligence &amp; ML Recommender</div>
